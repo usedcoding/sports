@@ -16,8 +16,8 @@ import java.util.Optional;
 public class PostService {
     private final PostRepository postRepository;
 
-    public List<Post> getList() {
-        return this.postRepository.findAll();
+    public List<Post> getList(String keyword) {
+        return this.postRepository.findAllByKeyword(keyword);
     }
 
     public Post getPost(Long id) {

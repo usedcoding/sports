@@ -1,6 +1,14 @@
 <a th:href="@{/user/login}"> 로그인 </a>
 <a th:href="@{/user/logout}"> 로그아웃 </a>
 <a th:href="@{/user/signup}"> 회원가입</a>
+<form th:action="@{/post/list}">
+  <div class="col-6">
+        <div class="input-group">
+            <input type="text" name="keyword" >
+            <button class="btn btn-outline-secondary" type="submit" >찾기</button>
+        </div>
+    </div>
+</form>
 
 <table>
     <thead>

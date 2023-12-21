@@ -12,10 +12,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.security.Principal;
@@ -30,8 +27,8 @@ public class PostController {
     private final UserService userService;
 
     @GetMapping("/list")
-    public String list(Model model) {
-        List<Post> post = this.postService.getList();
+    public String list(Model model, @RequestParam(value = "keyword", defaultValue = "")String keyword) {
+        List<Post> post = this.postService.getList(keyword);
         model.addAttribute("postList", post);
         return "post_list";
     }
@@ -42,6 +39,7 @@ public class PostController {
         model.addAttribute("post", post);
         return "post_detail";
     }
+
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/create")
     public String create(PostForm postForm) {
