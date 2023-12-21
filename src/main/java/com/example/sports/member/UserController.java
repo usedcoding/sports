@@ -30,7 +30,7 @@ public class UserController {
             bindingResult.rejectValue("password2", "passwordInCorrect", "비밀번호가 일치하지 않습니다.");
         }
 
-        this.userService.create(userCreateForm.getEmail(), userCreateForm.getPassword1(), userCreateForm.getNickname());
+        this.userService.create(userCreateForm.getUsername(), userCreateForm.getNickname(), userCreateForm.getPassword1());
         return "redirect:/post/list";
     }
 
@@ -38,5 +38,6 @@ public class UserController {
     public String login() {
         return "login_form";
     }
+
 
 }

@@ -1,14 +1,24 @@
 package com.example.sports.post.controller;
 
+import com.example.sports.member.Member;
+import com.example.sports.member.UserService;
+import com.example.sports.post.PostForm;
 import com.example.sports.post.entity.Post;
 import com.example.sports.post.service.PostService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.server.ResponseStatusException;
 
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -17,18 +27,94 @@ import java.util.List;
 public class PostController {
     private final PostService postService;
 
+    private final UserService userService;
+
     @GetMapping("/list")
     public String list(Model model) {
         List<Post> post = this.postService.getList();
         model.addAttribute("postList", post);
-        return"post_list";
+        return "post_list";
     }
 
     @GetMapping("/detail/{id}")
-    public String detail(@PathVariable(value = "id")Long id, Model model) {
-       Post post = this.postService.getPost(id);
-       model.addAttribute("post", post);
-        return"post_detail";
+    public String detail(@PathVariable(value = "id") Long id, Model model) {
+        Post post = this.postService.getPost(id);
+        model.addAttribute("post", post);
+        return "post_detail";
     }
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/create")
+    public String create(PostForm postForm) {
+        return "post_form";
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @PostMapping("/create")
+    public String create(@Valid PostForm postForm, BindingResult bindingResult, Principal principal) {
+
+        if (bindingResult.hasErrors()) {
+            return "post_form";
+        }
+
+        Member member = this.userService.getMember(principal.getName());
+
+        this.postService.create(postForm.getTitle(), postForm.getContent(),member);
+        return "redirect:/post/list";
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/delete/{id}")
+    public String delete(@PathVariable(value = "id")Long id, Model model, Principal principal) {
+        Post post = this.postService.getPost(id);
+        model.addAttribute("post", post);
+
+        if(principal == null || principal.getName() == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제권한이 없습니다.");
+        }
+        if(!post.getAuthor().getUsername().equals(principal.getName())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제권한이 없습니다.");
+        }
+        this.postService.delete(post);
+        return "redirect:/post/list";
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/modify/{id}")
+    public String modify(@PathVariable(value = "id")Long id, PostForm postForm, Model model, Principal principal) {
+        Post post = this.postService.getPost(id);
+        model.addAttribute("post", post);
+
+        if(principal == null || principal.getName() == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제권한이 없습니다.");
+        }
+        if(!post.getAuthor().getUsername().equals(principal.getName())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제권한이 없습니다.");
+        }
+
+        return"post_modify";
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @PostMapping("/modify/{id}")
+    public String modify(@PathVariable(value = "id")Long id, @Valid PostForm postForm, BindingResult bindingResult, Model model, Principal principal) {
+        Post post = this.postService.getPost(id);
+        model.addAttribute("post", post);
+
+        if (bindingResult.hasErrors()) {
+            return"post_modify";
+        }
+
+        if(principal == null || principal.getName() == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제권한이 없습니다.");
+        }
+        if(!post.getAuthor().getUsername().equals(principal.getName())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제권한이 없습니다.");
+        }
+
+        this.postService.modify(post, postForm.getTitle(), postForm.getContent());
+
+        return String.format("redirect:/post/detail/%d",id);
+    }
+
 
 }
