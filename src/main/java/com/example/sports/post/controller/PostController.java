@@ -1,6 +1,8 @@
 package com.example.sports.post.controller;
 
+import com.example.sports.comment.Comment;
 import com.example.sports.comment.CommentForm;
+import com.example.sports.comment.CommentService;
 import com.example.sports.member.Member;
 import com.example.sports.member.UserService;
 import com.example.sports.post.PostForm;
@@ -27,6 +29,8 @@ public class PostController {
 
     private final UserService userService;
 
+    private final CommentService commentService;
+
     @GetMapping("/list")
     public String list(Model model, @RequestParam(value = "keyword", defaultValue = "")String keyword) {
         List<Post> post = this.postService.getList(keyword);
@@ -39,6 +43,19 @@ public class PostController {
         Post post = this.postService.getPost(id);
         model.addAttribute("post", post);
         return "post_detail";
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @PostMapping("/detail/{id}")
+    public String detail( @PathVariable(value = "id") Long id, @Valid CommentForm commentForm, BindingResult bindingResult, Model model, Principal principal) {
+        Post post = this.postService.getPost(id);
+        Member member = this.userService.getMember(principal.getName());
+
+        if(bindingResult.hasErrors()) {
+            return String.format("redirect:/post/detail/%d", id);
+        }
+        this.commentService.create(post, commentForm.getContent(), member);
+        return String.format("redirect:/post/detail/%d", id);
     }
 
     @PreAuthorize("isAuthenticated()")
