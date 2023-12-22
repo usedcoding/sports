@@ -60,7 +60,21 @@ public class CommentController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"수정 권한이 없습니다.");
         }
 
-        return
+        return String.format("redirect:/post/detail/%d", comment.getPost().getId());
+    }
+
+    @PostMapping("/modify/{id}")
+    public String modify(@PathVariable(value = "id") Long id, Model model, Principal principal, @Valid CommentForm commentForm, BindingResult bindingResult) {
+        Comment comment = this.commentService.GetComment(id);
+        model.addAttribute("comment", comment);
+
+        if(bindingResult.hasErrors()) {
+            return String.format("redirect:/post/detail/%d", comment.getPost().getId());
+        }
+
+        if(!comment.getAuthor().getUsername().equals(principal.getName())){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"수정 권한이 없습니다.");
+        }
     }
 
 
