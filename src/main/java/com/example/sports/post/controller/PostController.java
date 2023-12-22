@@ -1,5 +1,6 @@
 package com.example.sports.post.controller;
 
+import com.example.sports.comment.CommentForm;
 import com.example.sports.member.Member;
 import com.example.sports.member.UserService;
 import com.example.sports.post.PostForm;
@@ -34,7 +35,7 @@ public class PostController {
     }
 
     @GetMapping("/detail/{id}")
-    public String detail(@PathVariable(value = "id") Long id, Model model) {
+    public String detail(@PathVariable(value = "id") Long id, Model model, CommentForm commentForm) {
         Post post = this.postService.getPost(id);
         model.addAttribute("post", post);
         return "post_detail";
@@ -66,9 +67,6 @@ public class PostController {
         Post post = this.postService.getPost(id);
         model.addAttribute("post", post);
 
-        if(principal == null || principal.getName() == null) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제권한이 없습니다.");
-        }
         if(!post.getAuthor().getUsername().equals(principal.getName())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제권한이 없습니다.");
         }
@@ -82,9 +80,6 @@ public class PostController {
         Post post = this.postService.getPost(id);
         model.addAttribute("post", post);
 
-        if(principal == null || principal.getName() == null) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제권한이 없습니다.");
-        }
         if(!post.getAuthor().getUsername().equals(principal.getName())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제권한이 없습니다.");
         }
@@ -102,9 +97,6 @@ public class PostController {
             return"post_modify";
         }
 
-        if(principal == null || principal.getName() == null) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제권한이 없습니다.");
-        }
         if(!post.getAuthor().getUsername().equals(principal.getName())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제권한이 없습니다.");
         }
