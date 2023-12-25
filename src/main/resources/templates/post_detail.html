@@ -12,6 +12,7 @@
     <ul>
         <li th:text="${comment.content}"></li>
         <a th:href="@{|/comment/delete/${comment.id}|}"> 삭제 </a>
+        <a th:href="@{|/comment/modify/${comment.id}|}"> 수정 </a>
     </ul>
 </div>
 
