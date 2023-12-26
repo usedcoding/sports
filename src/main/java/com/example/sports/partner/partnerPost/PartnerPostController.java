@@ -94,7 +94,7 @@ public class PartnerPostController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정 권한이 없습니다.");
         }
 
-        this.partnerPostService.modify(partnerPost, partnerPostForm.getContent());
+        this.partnerPostService.modify(partnerPost,partnerPostForm.getTitle() ,partnerPostForm.getContent());
 
         return String.format("redirect:/partner/detail/%d", id);
     }

@@ -36,7 +36,8 @@ public class PartnerPostService {
         this.partnerPostRepository.delete(partnerPost);
     }
 
-    public void modify(PartnerPost partnerPost, String content) {
+    public void modify(PartnerPost partnerPost, String title, String content) {
+        partnerPost.setTitle(title);
         partnerPost.setContent(content);
         partnerPost.setModifyDate(LocalDate.now());
 
