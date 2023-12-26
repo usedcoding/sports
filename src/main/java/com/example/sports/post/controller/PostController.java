@@ -123,5 +123,16 @@ public class PostController {
         return String.format("redirect:/post/detail/%d",id);
     }
 
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/vote/{id}")
+    public String vote(@PathVariable(value = "id")Long id, Principal principal ) {
+        Post post = this.postService.getPost(id);
+        Member member = this.userService.getMember(principal.getName());
+        this.postService.vote(post, member);
+        return String.format("redirect:/post/detail/%d",id);
+
+    }
+
+
 
 }

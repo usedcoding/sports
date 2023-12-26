@@ -79,5 +79,13 @@ public class CommentController {
         return String.format("redirect:/post/detail/%d", comment.getPost().getId());
     }
 
+    @GetMapping("/vote/{id}")
+    public String vote(@PathVariable(value = "id")Long id, Principal principal) {
+        Comment comment = this.commentService.GetComment(id);
+        Member member = this.userService.getMember(principal.getName());
+        this.commentService.vote(comment,member);
+        return String.format("redirect:/post/detail/%d", comment.getPost().getId());
+    }
+
 
 }

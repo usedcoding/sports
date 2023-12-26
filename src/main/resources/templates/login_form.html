@@ -1,5 +1,6 @@
 <a th:href="@{/main}">로고</a>
 
+<!--로그인 기능 시작-->
 <form th:action="@{/user/login}" method="post">
     <div class="mb-3">
         <label for="username" class="form-label">이메일</label>
@@ -11,3 +12,4 @@
     </div>
     <button type="submit" class="btn btn-primary">로그인</button>
 </form>
+<!--로그인 기능 끝-->

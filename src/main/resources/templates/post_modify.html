@@ -1,8 +1,10 @@
 <a th:href="@{/main}">로고</a>
 
+<!--게시글 수정 시작-->
 <form th:action="@{|/post/modify/${post.id}|}" method="post">
     제목<input type="text" name="title">
     <br>
     내용<textarea name="content" id="" cols="30" rows="10"></textarea>
     <button type="submit">게시글 수정</button>
 </form>
+<!--게시글 수정 끝-->

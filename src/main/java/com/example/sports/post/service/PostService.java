@@ -53,4 +53,10 @@ public class PostService {
         this.postRepository.save(post);
     }
 
+    public void vote(Post post, Member member) {
+        post.getVoter().add(member);
+        this.postRepository.save(post);
+    }
+
+
 }

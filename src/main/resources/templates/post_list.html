@@ -8,6 +8,7 @@
 <br>
 <a th:href="@{/user/signup}"> 회원가입</a>
 
+<!--검색 기능 시작-->
 <form th:action="@{/post/list}">
   <div class="col-6">
         <div class="input-group">
@@ -16,7 +17,9 @@
         </div>
     </div>
 </form>
+<!--검색 기능 끝-->
 
+<!--작성글 목록 시작-->
 <table>
     <thead>
     <tr>
@@ -33,5 +36,6 @@
     </tr>
     </tbody>
 </table>
+<!--작성글 목록 끝-->
 
 <a th:href="@{/post/create}">게시글 작성</a>

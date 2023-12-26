@@ -38,4 +38,9 @@ public class CommentService {
 
         this.commentRepository.save(comment);
     }
+
+    public void vote(Comment comment, Member member) {
+        comment.getVoter().add(member);
+        this.commentRepository.save(comment);
+    }
 }

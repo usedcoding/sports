@@ -10,6 +10,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -36,5 +37,8 @@ public class Post {
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
     private List<Comment> CommentList;
+
+    @ManyToMany
+    private Set<Member> voter;
 
 }
