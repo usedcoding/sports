@@ -20,6 +20,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Set;
 
 @Controller
 @RequiredArgsConstructor
@@ -32,7 +33,7 @@ public class PostController {
     private final CommentService commentService;
 
     @GetMapping("/list")
-    public String list(Model model, @RequestParam(value = "keyword", defaultValue = "")String keyword) {
+    public String list(Model model, @RequestParam(value = "keyword", defaultValue = "") String keyword) {
         List<Post> post = this.postService.getList(keyword);
         model.addAttribute("postList", post);
         return "post_list";
@@ -47,11 +48,11 @@ public class PostController {
 
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/detail/{id}")
-    public String detail( @PathVariable(value = "id") Long id, @Valid CommentForm commentForm, BindingResult bindingResult, Model model, Principal principal) {
+    public String detail(@PathVariable(value = "id") Long id, @Valid CommentForm commentForm, BindingResult bindingResult, Model model, Principal principal) {
         Post post = this.postService.getPost(id);
         Member member = this.userService.getMember(principal.getName());
 
-        if(bindingResult.hasErrors()) {
+        if (bindingResult.hasErrors()) {
             return String.format("redirect:/post/detail/%d", id);
         }
         this.commentService.create(post, commentForm.getContent(), member);
@@ -74,17 +75,17 @@ public class PostController {
 
         Member member = this.userService.getMember(principal.getName());
 
-        this.postService.create(postForm.getTitle(), postForm.getContent(),member);
+        this.postService.create(postForm.getTitle(), postForm.getContent(), member);
         return "redirect:/post/list";
     }
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/delete/{id}")
-    public String delete(@PathVariable(value = "id")Long id, Model model, Principal principal) {
+    public String delete(@PathVariable(value = "id") Long id, Model model, Principal principal) {
         Post post = this.postService.getPost(id);
         model.addAttribute("post", post);
 
-        if(!post.getAuthor().getUsername().equals(principal.getName())) {
+        if (!post.getAuthor().getUsername().equals(principal.getName())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제권한이 없습니다.");
         }
         this.postService.delete(post);
@@ -93,46 +94,65 @@ public class PostController {
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/modify/{id}")
-    public String modify(@PathVariable(value = "id")Long id, PostForm postForm, Model model, Principal principal) {
+    public String modify(@PathVariable(value = "id") Long id, PostForm postForm, Model model, Principal principal) {
         Post post = this.postService.getPost(id);
         model.addAttribute("post", post);
 
-        if(!post.getAuthor().getUsername().equals(principal.getName())) {
+        if (!post.getAuthor().getUsername().equals(principal.getName())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제권한이 없습니다.");
         }
 
-        return"post_modify";
+        return "post_modify";
     }
 
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/modify/{id}")
-    public String modify(@PathVariable(value = "id")Long id, @Valid PostForm postForm, BindingResult bindingResult, Model model, Principal principal) {
+    public String modify(@PathVariable(value = "id") Long id, @Valid PostForm postForm, BindingResult bindingResult, Model model, Principal principal) {
         Post post = this.postService.getPost(id);
         model.addAttribute("post", post);
 
         if (bindingResult.hasErrors()) {
-            return"post_modify";
+            return "post_modify";
         }
 
-        if(!post.getAuthor().getUsername().equals(principal.getName())) {
+        if (!post.getAuthor().getUsername().equals(principal.getName())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제권한이 없습니다.");
         }
 
         this.postService.modify(post, postForm.getTitle(), postForm.getContent());
 
-        return String.format("redirect:/post/detail/%d",id);
+        return String.format("redirect:/post/detail/%d", id);
     }
 
     @PreAuthorize("isAuthenticated()")
-    @GetMapping("/vote/{id}")
-    public String vote(@PathVariable(value = "id")Long id, Principal principal ) {
+    @GetMapping("/like/{id}")
+    public String like(@PathVariable(value = "id") Long id, Principal principal) {
         Post post = this.postService.getPost(id);
         Member member = this.userService.getMember(principal.getName());
-        this.postService.vote(post, member);
-        return String.format("redirect:/post/detail/%d",id);
-
+//        Set<Member> memberSet = post.getLike();
+//
+//        boolean isLikedPost = false;
+//        for (Member likedMember : memberSet) {
+//            if (member.getId() == likedMember.getId()) {
+//                isLikedPost = true;
+//            }
+//        }
+//
+//        if (isLikedPost == false) {
+//           this.postService.like(post,member);
+//        } else {
+//        }
+        return String.format("redirect:/post/detail/%d", id);
     }
 
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/unLike/{id}")
+    public String unLike(@PathVariable(value = "id") Long id, Principal principal) {
+        Post post = this.postService.getPost(id);
+        Member member = this.userService.getMember(principal.getName());
+        this.postService.unLike(post, member);
+        return String.format("redirect:/post/detail/%d", id);
+    }
 
 
 }

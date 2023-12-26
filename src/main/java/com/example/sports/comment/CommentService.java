@@ -39,8 +39,13 @@ public class CommentService {
         this.commentRepository.save(comment);
     }
 
-    public void vote(Comment comment, Member member) {
-        comment.getVoter().add(member);
+    public void like(Comment comment, Member member) {
+        comment.getLike().add(member);
+        this.commentRepository.save(comment);
+    }
+
+    public void unLike(Comment comment, Member member) {
+        comment.getUnLike().add(member);
         this.commentRepository.save(comment);
     }
 }

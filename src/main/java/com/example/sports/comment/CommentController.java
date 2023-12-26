@@ -79,13 +79,24 @@ public class CommentController {
         return String.format("redirect:/post/detail/%d", comment.getPost().getId());
     }
 
-    @GetMapping("/vote/{id}")
-    public String vote(@PathVariable(value = "id")Long id, Principal principal) {
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/like/{id}")
+    public String like(@PathVariable(value = "id")Long id, Principal principal) {
         Comment comment = this.commentService.GetComment(id);
         Member member = this.userService.getMember(principal.getName());
-        this.commentService.vote(comment,member);
+        this.commentService.like(comment,member);
         return String.format("redirect:/post/detail/%d", comment.getPost().getId());
     }
+
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/unLike/{id}")
+    public String unLike(@PathVariable(value = "id")Long id, Principal principal ) {
+        Comment comment = this.commentService.GetComment(id);
+        Member member = this.userService.getMember(principal.getName());
+        this.commentService.unLike(comment, member);
+        return String.format("redirect:/post/detail/%d",comment.getPost().getId());
+    }
+
 
 
 }

@@ -8,13 +8,17 @@
 <div th:text="${post.content}"></div>
 <div th:text="${post.createDate}"></div>
 
-<!--댓글 목록 수정, 삭제 기능 시작-->
+<!--댓글 목록 수정, 삭제, 추천 기능 시작-->
 <div th:each="comment : ${post.commentList}">
     <ul>
         <li th:text="${comment.content}"></li>
-        <a th:href= "@{|/comment/vote/${comment.id}|}">
+        <a th:href= "@{|/comment/like/${comment.id}|}">
             추천
-            <span class="badge rounded-pill bg-success" th:text="${#lists.size(comment.voter)}"></span>
+            <span class="badge rounded-pill bg-success" th:text="${#lists.size(comment.like)}"></span>
+        </a>
+        <a th:href= "@{|/comment/unLike/${comment.id}|}">
+            비추천
+            <span class="badge rounded-pill bg-success" th:text="${#lists.size(comment.unLike)}"></span>
         </a>
         <a th:href="@{|/comment/delete/${comment.id}|}"> 삭제 </a>
         <a th:href="@{|/comment/modify/${comment.id}|}"> 수정 </a>
@@ -31,9 +35,13 @@
 <!--댓글 작성 끝-->
 
 <!--추천 기능 시작-->
-<a th:href= "@{|/post/vote/${post.id}|}">
+<a th:href= "@{|/post/like/${post.id}|}">
     추천
-    <span class="badge rounded-pill bg-success" th:text="${#lists.size(post.voter)}"></span>
+    <span class="badge rounded-pill bg-success" th:text="${#lists.size(post.like)}"></span>
+</a>
+<a th:href= "@{|/post/unLike/${post.id}|}">
+    비추천
+    <span class="badge rounded-pill bg-success" th:text="${#lists.size(post.unLike)}"></span>
 </a>
 <!--추천 기능 끝-->
 

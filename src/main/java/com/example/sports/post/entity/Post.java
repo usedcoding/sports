@@ -39,6 +39,9 @@ public class Post {
     private List<Comment> CommentList;
 
     @ManyToMany
-    private Set<Member> voter;
+    private Set<Member> like;
+
+    @ManyToMany
+    private Set<Member> unLike;
 
 }

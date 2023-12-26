@@ -1,0 +1,24 @@
+<a th:href="@{/main}">로고</a>
+<br>
+
+
+<a th:href="@{/user/login}"> 로그인 </a>
+<br>
+<a th:href="@{/user/logout}"> 로그아웃 </a>
+<br>
+<a th:href="@{/user/signup}"> 회원가입</a>
+
+<table>
+    <thead>
+    <tr>
+        <th> 제목 </th>
+        <th> 작성 일자 </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="partnerPost : ${partnerPost}">
+        <td th:text="${partnerPost.title"></td>
+        <td th:text="${partnerPost.createDate}"></td>
+    </tr>
+    </tbody>
+</table>

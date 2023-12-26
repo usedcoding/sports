@@ -1,6 +1,7 @@
 package com.example.sports.post.service;
 
 import com.example.sports.DataNotFoundException;
+import com.example.sports.comment.Comment;
 import com.example.sports.member.Member;
 import com.example.sports.post.entity.Post;
 import com.example.sports.post.repository.PostRepository;
@@ -53,10 +54,20 @@ public class PostService {
         this.postRepository.save(post);
     }
 
-    public void vote(Post post, Member member) {
-        post.getVoter().add(member);
+    public void like(Post post, Member member) {
+        post.getLike().add(member);
         this.postRepository.save(post);
     }
+
+//    public void likeDelete(Post post) {
+//        this.postRepository.deleteById(post.getLike());
+//    }
+
+    public void unLike(Post post, Member member) {
+        post.getUnLike().add(member);
+        this.postRepository.save(post);
+    }
+
 
 
 }

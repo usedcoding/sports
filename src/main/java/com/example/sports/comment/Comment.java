@@ -31,5 +31,8 @@ public class Comment {
     private Member author;
 
     @ManyToMany
-    private Set<Member> voter;
+    private Set<Member> like;
+
+    @ManyToMany
+    private Set<Member> unLike;
 }
