@@ -16,9 +16,13 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="partnerPost : ${partnerPost}">
-        <td th:text="${partnerPost.title"></td>
+    <tr th:each="partnerPost : ${partnerPostList}">
+        <td>
+            <a th:href="@{|/partner/detail/${partnerPost.id}|}" th:text="${partnerPost.title}"></a>
+        </td>
         <td th:text="${partnerPost.createDate}"></td>
     </tr>
     </tbody>
 </table>
+
+<a th:href="@{/partner/create}">작성</a>

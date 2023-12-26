@@ -1,5 +1,6 @@
 package com.example.sports.partner.partnerPost;
 
+import com.example.sports.member.Member;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,5 +22,9 @@ public class PartnerPost {
     private String content;
 
     private LocalDate createDate;
+
     private LocalDate modifyDate;
+
+    @ManyToOne
+    private Member author;
 }

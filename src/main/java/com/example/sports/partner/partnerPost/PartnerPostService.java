@@ -1,5 +1,6 @@
 package com.example.sports.partner.partnerPost;
 
+import com.example.sports.member.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -12,10 +13,11 @@ import java.util.Optional;
 public class PartnerPostService {
     private final PartnerPostRepository partnerPostRepository;
 
-    public void create(String title, String content) {
+    public void create(String title, String content, Member member) {
         PartnerPost partnerPost = new PartnerPost();
         partnerPost.setTitle(title);
         partnerPost.setContent(content);
+        partnerPost.setAuthor(member);
         partnerPost.setCreateDate(LocalDate.now());
 
         this.partnerPostRepository.save(partnerPost);

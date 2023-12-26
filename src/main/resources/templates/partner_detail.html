@@ -1,0 +1,6 @@
+<div th:text="${partnerPost.title}"></div>
+<div th:text="${partnerPost.content}"></div>
+<div th:text="${partnerPost.createDate}"></div>
+
+<a th:href="@{|/partner/delete/${partnerPost.id}|}"> 삭제 </a>
+<a th:href="@{|/partner/modify/${partnerPost.id}|}"> 수정 </a>
