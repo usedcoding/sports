@@ -52,11 +52,17 @@ public class PartnerPostController {
         return "redirect:/partner/list";
     }
 
+    //비회원도 볼 수 있게 해야 한다.
+    @PreAuthorize("isAuthenticated()")
     @GetMapping("/detail/{id}")
-    public String detail(@PathVariable(value = "id") long id, Model model) {
+    public String detail(@PathVariable(value = "id") long id, Model model, Principal principal) {
         PartnerPost partnerPost = this.partnerPostService.getPartnerPost(id);
         model.addAttribute("partnerPost", partnerPost);
-        return "partner_detail";
+        if (partnerPost.getAuthor().getUsername().equals(principal.getName())) {
+            return "partner_detail";
+        } else {
+            return "partner_view";
+        }
     }
 
     @PreAuthorize("isAuthenticated()")
@@ -94,7 +100,7 @@ public class PartnerPostController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정 권한이 없습니다.");
         }
 
-        this.partnerPostService.modify(partnerPost,partnerPostForm.getTitle() ,partnerPostForm.getContent());
+        this.partnerPostService.modify(partnerPost, partnerPostForm.getTitle(), partnerPostForm.getContent());
 
         return String.format("redirect:/partner/detail/%d", id);
     }

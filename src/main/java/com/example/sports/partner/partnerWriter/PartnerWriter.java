@@ -1,4 +1,4 @@
-package com.example.sports.partner.partnerComment;
+package com.example.sports.partner.partnerWriter;
 
 import com.example.sports.member.Member;
 import com.example.sports.partner.partnerPost.PartnerPost;
@@ -11,7 +11,7 @@ import java.time.LocalDate;
 @Entity
 @Getter
 @Setter
-public class PartnerComment {
+public class PartnerWriter {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -23,6 +23,7 @@ public class PartnerComment {
 
     private LocalDate modifyDate;
 
+    @ManyToOne
     private Member author;
 
     @ManyToOne
