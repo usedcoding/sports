@@ -98,5 +98,4 @@ public class PartnerPostController {
 
         return String.format("redirect:/partner/detail/%d", id);
     }
-    //수정 오류부터 작업 시작
 }
