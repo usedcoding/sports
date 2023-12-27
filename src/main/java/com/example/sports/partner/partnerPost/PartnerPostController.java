@@ -76,7 +76,7 @@ public class PartnerPostController {
     @GetMapping("/modify/{id}")
     public String modify(@PathVariable(value = "id") Long id, PartnerPostForm partnerPostForm, Model model, Principal principal) {
         PartnerPost partnerPost = this.partnerPostService.getPartnerPost(id);
-        model.addAttribute("PartnerPost", partnerPost);
+        model.addAttribute("partnerPost", partnerPost);
 
         if (!partnerPost.getAuthor().getUsername().equals(principal.getName())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정 권한이 없습니다.");
@@ -99,6 +99,4 @@ public class PartnerPostController {
         return String.format("redirect:/partner/detail/%d", id);
     }
     //수정 오류부터 작업 시작
-
-
 }
