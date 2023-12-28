@@ -44,8 +44,20 @@ public class CommentService {
         this.commentRepository.save(comment);
     }
 
+    public void disLike(Post post, Member member) {
+        post.getLike().remove(member);
+        this.postRepository.save(post);
+    }
+
+
+
     public void unLike(Comment comment, Member member) {
         comment.getUnLike().add(member);
         this.commentRepository.save(comment);
+    }
+
+    public void disUnLike(Post post, Member member) {
+        post.getUnLike().remove(member);
+        this.postRepository.save(post);
     }
 }

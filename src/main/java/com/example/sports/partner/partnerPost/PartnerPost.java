@@ -1,11 +1,14 @@
 package com.example.sports.partner.partnerPost;
 
+import com.example.sports.comment.Comment;
 import com.example.sports.member.Member;
+import com.example.sports.partner.partnerApplicant.PartnerApplicant;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Getter
@@ -27,4 +30,8 @@ public class PartnerPost {
 
     @ManyToOne
     private Member author;
+
+    //cascade = CascadeType.REMOVE -> 부모 엔티티 삭제시 자식 엔티티도 삭제
+    @OneToMany(mappedBy = "partnerPost", cascade = CascadeType.REMOVE)
+    private List<PartnerApplicant> PartnerApplicantList;
 }

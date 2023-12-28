@@ -1,6 +1,7 @@
 package com.example.sports.partner.partnerApplicant;
 
 import com.example.sports.member.Member;
+import com.example.sports.partner.partnerPost.PartnerPost;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -24,4 +25,7 @@ public class PartnerApplicant {
 
     @ManyToOne
     private Member author;
+
+    @ManyToOne
+    private PartnerPost partnerPost;
 }

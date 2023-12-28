@@ -142,6 +142,14 @@ public class PostController {
 //           this.postService.like(post,member);
 //        } else {
 //        }
+
+        if (!post.getLike().contains(member)) {
+            postService.like(post, member);
+        } else if (post.getLike().contains(member)) {
+            postService.disLike(post, member);
+        } else {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "권한이 없습니다.");
+        }
         return String.format("redirect:/post/detail/%d", id);
     }
 
@@ -150,7 +158,14 @@ public class PostController {
     public String unLike(@PathVariable(value = "id") Long id, Principal principal) {
         Post post = this.postService.getPost(id);
         Member member = this.userService.getMember(principal.getName());
-        this.postService.unLike(post, member);
+
+        if (!post.getUnLike().contains(member)) {
+            postService.unLike(post, member);
+        } else if (post.getUnLike().contains(member)) {
+            postService.disUnLike(post, member);
+        } else {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "권한이 없습니다.");
+        }
         return String.format("redirect:/post/detail/%d", id);
     }
 

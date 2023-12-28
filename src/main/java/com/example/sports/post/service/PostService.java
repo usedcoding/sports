@@ -59,12 +59,18 @@ public class PostService {
         this.postRepository.save(post);
     }
 
-//    public void likeDelete(Post post) {
-//        this.postRepository.deleteById(post.getLike());
-//    }
+    public void disLike(Post post, Member member) {
+        post.getLike().remove(member);
+        this.postRepository.save(post);
+    }
 
     public void unLike(Post post, Member member) {
         post.getUnLike().add(member);
+        this.postRepository.save(post);
+    }
+
+    public void disUnLike(Post post, Member member) {
+        post.getUnLike().remove(member);
         this.postRepository.save(post);
     }
 

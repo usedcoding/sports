@@ -1,8 +1,26 @@
-<!--파트너 글 작성자 페이지-->
+<!--파트너 글 페이지-->
 
 <div th:text="${partnerPost.title}"></div>
 <div th:text="${partnerPost.content}"></div>
 <div th:text="${partnerPost.createDate}"></div>
+
+
+<div th:each="partnerApplicant : ${PAList}">
+    <ul>
+        <li  >
+            <span th:text="${partnerApplicant.content}"></span>
+            <span th:text="${partnerApplicant.author.getNickname}"></span>
+        </li>
+        <a th:href="@{|/applicant/delete/${partnerApplicant.id}|}">삭제</a>
+    </ul>
+</div>
+
+<form th:object="${paForm}" method="post">
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+    <textarea th:field="*{content}" id="" cols="10" rows="10"></textarea>
+    <button type="submit">신청글 작성</button>
+</form>
+
 
 <a th:href="@{|/partner/delete/${partnerPost.id}|}"> 삭제 </a>
 <a th:href="@{|/partner/modify/${partnerPost.id}|}"> 수정 </a>

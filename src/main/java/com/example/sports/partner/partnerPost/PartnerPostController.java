@@ -1,7 +1,12 @@
 package com.example.sports.partner.partnerPost;
 
+import com.example.sports.comment.CommentForm;
 import com.example.sports.member.Member;
 import com.example.sports.member.UserService;
+import com.example.sports.partner.partnerApplicant.PAForm;
+import com.example.sports.partner.partnerApplicant.PAService;
+import com.example.sports.partner.partnerApplicant.PartnerApplicant;
+import com.example.sports.post.entity.Post;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -24,6 +29,7 @@ import java.util.List;
 public class PartnerPostController {
     private final PartnerPostService partnerPostService;
     private final UserService userService;
+    private final PAService paService;
 
     @GetMapping("/list")
     public String getList(Model model) {
@@ -58,11 +64,26 @@ public class PartnerPostController {
     public String detail(@PathVariable(value = "id") long id, Model model, Principal principal) {
         PartnerPost partnerPost = this.partnerPostService.getPartnerPost(id);
         model.addAttribute("partnerPost", partnerPost);
-        if (partnerPost.getAuthor().getUsername().equals(principal.getName())) {
-            return "partner_detail";
-        } else {
-            return "partner_view";
+
+        List<PartnerApplicant> partnerApplicant = this.paService.getList();
+        model.addAttribute("PAList", partnerApplicant);
+
+        model.addAttribute("paForm", new PAForm());
+        return "partner_detail";
+
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @PostMapping("/detail/{id}")
+    public String detail(@PathVariable(value = "id") Long id, @Valid PAForm paForm, BindingResult bindingResult, Model model, Principal principal) {
+        PartnerPost partnerPost = this.partnerPostService.getPartnerPost(id);
+        Member member = this.userService.getMember(principal.getName());
+
+        if (bindingResult.hasErrors()) {
+            return String.format("redirect:/partner/detail/%d", id);
         }
+        this.paService.create(partnerPost, paForm.getContent(), member);
+        return String.format("redirect:/partner/detail/%d", id);
     }
 
     @PreAuthorize("isAuthenticated()")
@@ -79,6 +100,7 @@ public class PartnerPostController {
         return "redirect:/partner/list";
     }
 
+    @PreAuthorize("isAuthenticated()")
     @GetMapping("/modify/{id}")
     public String modify(@PathVariable(value = "id") Long id, PartnerPostForm partnerPostForm, Model model, Principal principal) {
         PartnerPost partnerPost = this.partnerPostService.getPartnerPost(id);
@@ -91,6 +113,7 @@ public class PartnerPostController {
         return "partner_modify";
     }
 
+    @PreAuthorize("isAuthenticated()")
     @PostMapping("/modify/{id}")
     public String modify(@PathVariable(value = "id") Long id, @Valid PartnerPostForm partnerPostForm, BindingResult bindingResult, Model model, Principal principal) {
         PartnerPost partnerPost = this.partnerPostService.getPartnerPost(id);
