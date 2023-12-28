@@ -50,7 +50,7 @@ public class PartnerPostController {
     public String create(@Valid PartnerPostForm partnerPostForm, BindingResult bindingResult, Principal principal) {
 
         if (bindingResult.hasErrors()) {
-            return "redirect:/partner/list";
+            return "partner_form";
         }
         Member member = this.userService.getMember(principal.getName());
         this.partnerPostService.create(partnerPostForm.getTitle(), partnerPostForm.getContent(), member);

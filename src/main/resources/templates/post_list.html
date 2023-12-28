@@ -15,6 +15,7 @@
 <!--작성글 목록 시작-->
 <html layout:decorate="~{layout}">
 <div layout:fragment="content" class="container my-3">
+    <h2>게시판</h2>
     <form th:action="@{/post/list}">
         <div class="col-6">
             <div class="input-group">
@@ -46,7 +47,6 @@
     <button type="button" class="btn btn-primary">
         <a th:href="@{/post/create}" class="btn btn-primary">게시글 작성</a>
     </button>
-
 </div>
 </html>
 <!--작성글 목록 끝-->

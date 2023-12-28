@@ -1,28 +1,37 @@
-<a th:href="@{/main}">로고</a>
-<br>
-
-
-<a th:href="@{/user/login}"> 로그인 </a>
-<br>
-<a th:href="@{/user/logout}"> 로그아웃 </a>
-<br>
-<a th:href="@{/user/signup}"> 회원가입</a>
-
-<table>
-    <thead>
-    <tr>
-        <th> 제목 </th>
-        <th> 작성 일자 </th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="partnerPost : ${partnerPostList}">
-        <td>
-            <a th:href="@{|/partner/detail/${partnerPost.id}|}" th:text="${partnerPost.title}"></a>
-        </td>
-        <td th:text="${partnerPost.createDate}"></td>
-    </tr>
-    </tbody>
-</table>
-
-<a th:href="@{/partner/create}">작성</a>
+<html layout:decorate="~{layout}">
+<div layout:fragment="content" class="container my-3">
+<!--    <form th:action="@{/partner/list}">-->
+<!--        <div class="col-6">-->
+<!--            <div class="input-group">-->
+<!--                <input type="text" name="keyword">-->
+<!--                <button class="btn btn-outline-secondary" type="submit">찾기</button>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </form>-->
+<!-- controller에 keyword 작성 해야 한다.  -->
+    <h2>파트너 찾기</h2>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>제목</th>
+            <th>작성 일자</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="partnerPost : ${partnerPostList}">
+            <td>
+                <a th:href="@{|/partner/detail/${partnerPost.id}|}" th:text="${partnerPost.title}"></a>
+<!--                <span class="text-danger small ms-2"-->
+<!--                      th:if="${#lists.size(partnerPost.paList) > 0}"-->
+<!--                      th:text="${#lists.size(partnerPost.paList)}">-->
+<!--                    </span>-->
+            </td>
+            <td th:text="${#temporals.format(partnerPost.createDate, 'yyyy-MM-dd HH:mm')}"></td>
+        </tr>
+        </tbody>
+    </table>
+    <button type="button" class="btn btn-primary">
+        <a th:href="@{/partner/create}" class="btn btn-primary">게시글 작성</a>
+    </button>
+</div>
+</html>
