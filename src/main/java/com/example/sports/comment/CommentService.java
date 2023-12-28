@@ -44,9 +44,9 @@ public class CommentService {
         this.commentRepository.save(comment);
     }
 
-    public void disLike(Post post, Member member) {
-        post.getLike().remove(member);
-        this.postRepository.save(post);
+    public void disLike(Comment comment, Member member) {
+        comment.getLike().remove(member);
+        this.commentRepository.save(comment);
     }
 
 
@@ -56,8 +56,9 @@ public class CommentService {
         this.commentRepository.save(comment);
     }
 
-    public void disUnLike(Post post, Member member) {
-        post.getUnLike().remove(member);
-        this.postRepository.save(post);
+    public void disUnLike(Comment comment, Member member) {
+        comment.getUnLike().remove(member);
+        this.commentRepository.save(comment);
     }
+
 }

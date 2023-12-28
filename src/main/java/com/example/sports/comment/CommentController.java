@@ -83,7 +83,13 @@ public class CommentController {
     public String like(@PathVariable(value = "id") Long id, Principal principal) {
         Comment comment = this.commentService.GetComment(id);
         Member member = this.userService.getMember(principal.getName());
-        this.commentService.like(comment, member);
+        if (!comment.getLike().contains(member)) {
+            commentService.like(comment, member);
+        } else if (comment.getLike().contains(member)) {
+            commentService.disLike(comment, member);
+        } else {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "권한이 없습니다.");
+        }
         return String.format("redirect:/post/detail/%d", comment.getPost().getId());
     }
 
@@ -92,7 +98,13 @@ public class CommentController {
     public String unLike(@PathVariable(value = "id") Long id, Principal principal) {
         Comment comment = this.commentService.GetComment(id);
         Member member = this.userService.getMember(principal.getName());
-        this.commentService.unLike(comment, member);
+        if (!comment.getUnLike().contains(member)) {
+            commentService.unLike(comment, member);
+        } else if (comment.getUnLike().contains(member)) {
+            commentService.disUnLike(comment, member);
+        } else {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "권한이 없습니다.");
+        }
         return String.format("redirect:/post/detail/%d", comment.getPost().getId());
     }
 
