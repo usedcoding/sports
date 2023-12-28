@@ -6,14 +6,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class MainController {
 
-    @GetMapping("/main")
-    public String mainPage() {
-        return"main";
-    }
-
-
     @GetMapping("/")
-    public String root() {
-        return "redirect:/main";
+    public String mainPage() {
+        return "redirect:/post/list";
     }
 }
