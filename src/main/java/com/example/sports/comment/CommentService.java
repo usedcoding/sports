@@ -32,12 +32,12 @@ public class CommentService {
         this.commentRepository.delete(comment);
     }
 
-    public void modify(Comment comment, String content) {
-        comment.setContent(content);
-        comment.setModifyDate(LocalDateTime.now());
-
-        this.commentRepository.save(comment);
-    }
+//    public void modify(Comment comment, String content) {
+//        comment.setContent(content);
+//        comment.setModifyDate(LocalDateTime.now());
+//
+//        this.commentRepository.save(comment);
+//    }
 
     public void like(Comment comment, Member member) {
         comment.getLike().add(member);
