@@ -56,21 +56,21 @@ public class PartnerPostController {
     //비회원도 볼 수 있게 해야 한다.
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/detail/{id}")
-    public String detail(Model model, @PathVariable(value = "id") long id, PAForm paForm) {
+    public String detail(Model model, @PathVariable(value = "id") long id, PAForm PAForm) {
         PartnerPost partnerPost = this.partnerPostService.getPartnerPost(id);
         model.addAttribute("partnerPost", partnerPost);
 
         List<PartnerApplicant> partnerApplicant = this.paService.getList();
         model.addAttribute("PAList", partnerApplicant);
 
-        model.addAttribute("paForm", paForm);
+        model.addAttribute("PAForm", PAForm);
 
         return "partner_detail";
     }
 
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/detail/{id}")
-    public String detail(@PathVariable(value = "id") Long id, @ModelAttribute("paForm") @Valid PAForm paForm, BindingResult bindingResult, Model model, Principal principal) {
+    public String detail(@PathVariable(value = "id") Long id, @Valid PAForm PAForm, BindingResult bindingResult, Model model, Principal principal) {
         PartnerPost partnerPost = this.partnerPostService.getPartnerPost(id);
         Member member = this.userService.getMember(principal.getName());
 
@@ -81,7 +81,7 @@ public class PartnerPostController {
             return "partner_detail";
         }
 
-        this.paService.create(partnerPost, paForm.getContent(), member);
+        this.paService.create(partnerPost, PAForm.getContent(), member);
         return String.format("redirect:/partner/detail/%d", id);
     }
 

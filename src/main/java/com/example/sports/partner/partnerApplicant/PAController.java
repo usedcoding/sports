@@ -28,7 +28,7 @@ public class PAController {
 
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/create/{id}")
-    public String create(@PathVariable(value = "id") Long id, @Valid PAForm paForm, BindingResult bindingResult, Model model, Principal principal) {
+    public String create(@PathVariable(value = "id") Long id, @Valid PAForm PAForm, BindingResult bindingResult, Model model, Principal principal) {
         PartnerPost partnerPost = this.partnerPostService.getPartnerPost(id);
         Member member = this.userService.getMember(principal.getName());
 
@@ -36,7 +36,7 @@ public class PAController {
             return "partner_detail";
         }
 
-        this.paService.create(partnerPost, paForm.getContent(), member);
+        this.paService.create(partnerPost, PAForm.getContent(), member);
 
         return String.format("redirect:/partner/detail/%d", id);
     }
