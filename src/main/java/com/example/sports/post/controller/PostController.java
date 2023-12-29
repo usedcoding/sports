@@ -53,7 +53,8 @@ public class PostController {
         Member member = this.userService.getMember(principal.getName());
 
         if (bindingResult.hasErrors()) {
-            return String.format("redirect:/post/detail/%d", id);
+            model.addAttribute("post", post);
+            return "post_detail";
         }
         this.commentService.create(post, commentForm.getContent(), member);
         return String.format("redirect:/post/detail/%d", id);
@@ -86,7 +87,7 @@ public class PostController {
         model.addAttribute("post", post);
 
         if (!post.getAuthor().getUsername().equals(principal.getName())) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제권한이 없습니다.");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제 권한이 없습니다.");
         }
         this.postService.delete(post);
         return "redirect:/post/list";
@@ -99,7 +100,7 @@ public class PostController {
         model.addAttribute("post", post);
 
         if (!post.getAuthor().getUsername().equals(principal.getName())) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제권한이 없습니다.");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정 권한이 없습니다.");
         }
 
         return "post_modify";
@@ -116,7 +117,7 @@ public class PostController {
         }
 
         if (!post.getAuthor().getUsername().equals(principal.getName())) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제권한이 없습니다.");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정 권한이 없습니다.");
         }
 
         this.postService.modify(post, postForm.getTitle(), postForm.getContent());

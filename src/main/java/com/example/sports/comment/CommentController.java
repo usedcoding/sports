@@ -34,6 +34,7 @@ public class CommentController {
         if (bindingResult.hasErrors()) {
             return String.format("redirect:/post/detail/%d", id);
         }
+
         this.commentService.create(post, commentForm.getContent(), member);
         return String.format("redirect:/post/detail/%d", id);
     }

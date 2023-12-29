@@ -31,15 +31,19 @@
     </div>
     <div th:each="partnerApplicant : ${PAList}">
         <ul>
-            <li  >
+            <li>
                 <span th:text="${partnerApplicant.content}"></span>
                 <span th:text="${partnerApplicant.author.getNickname}"></span>
             </li>
-            <a th:href="@{|/applicant/delete/${partnerApplicant.id}|}" class="recommend btn btn-sm btn-outline-secondary">삭제</a>
+            <a th:href="@{|/applicant/delete/${partnerApplicant.id}|}"
+               class="recommend btn btn-sm btn-outline-secondary">삭제</a>
         </ul>
     </div>
-    <form th:object="${paForm}" method="post">
-        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+    <form  th:object="${paForm}" method="post">
+        <div class="alert alert-danger" role="alert" th:if="${#fields.hasAnyErrors()}">
+            <div th:each="err : ${#fields.allErrors()}" th:text="${err}"/>
+        </div>
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
         <textarea placeholder="신청글을 작성해 주세요." th:field="*{content}" id="" cols="100" rows="1"></textarea>
         <button type="submit">신청글 작성</button>
     </form>

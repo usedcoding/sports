@@ -1,14 +1,13 @@
 <html layout:decorate="~{layout}">
 <div layout:fragment="content" class="container my-3">
-<!--    <form th:action="@{/partner/list}">-->
-<!--        <div class="col-6">-->
-<!--            <div class="input-group">-->
-<!--                <input type="text" name="keyword">-->
-<!--                <button class="btn btn-outline-secondary" type="submit">찾기</button>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </form>-->
-<!-- controller에 keyword 작성 해야 한다.  -->
+    <form th:action="@{/partner/list}">
+        <div class="col-6">
+            <div class="input-group">
+                <input type="text" name="keyword">
+                <button class="btn btn-outline-secondary" type="submit">찾기</button>
+            </div>
+        </div>
+    </form>
     <h2>파트너 찾기</h2>
     <table class="table">
         <thead>

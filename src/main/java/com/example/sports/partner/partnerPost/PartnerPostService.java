@@ -23,8 +23,8 @@ public class PartnerPostService {
         this.partnerPostRepository.save(partnerPost);
     }
 
-    public List<PartnerPost> getList() {
-        return this.partnerPostRepository.findAll();
+    public List<PartnerPost> getList(String keyword) {
+        return this.partnerPostRepository.findAllByKeyword(keyword);
     }
 
     public PartnerPost getPartnerPost(Long id) {

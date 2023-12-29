@@ -33,7 +33,7 @@ public class PAController {
         Member member = this.userService.getMember(principal.getName());
 
         if (bindingResult.hasErrors()) {
-            return String.format("redirect:/partner/detail/%d", id);
+            return "partner_detail";
         }
 
         this.paService.create(partnerPost, paForm.getContent(), member);
