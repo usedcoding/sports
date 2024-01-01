@@ -6,6 +6,7 @@ import com.example.sports.partner.partnerApplicant.PartnerApplicant;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -33,5 +34,5 @@ public class PartnerPost {
 
     //cascade = CascadeType.REMOVE -> 부모 엔티티 삭제시 자식 엔티티도 삭제
     @OneToMany(mappedBy = "partnerPost", cascade = CascadeType.REMOVE)
-    private List<PartnerApplicant> PartnerApplicantList;
+    private List<PartnerApplicant> partnerApplicantList;
 }

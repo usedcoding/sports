@@ -29,17 +29,39 @@
             </div>
         </div>
     </div>
-    <div th:each="partnerApplicant : ${PAList}">
+    <div th:each="partnerApplicant : ${partnerPost.partnerApplicantList}">
         <ul>
             <li>
                 <span th:text="${partnerApplicant.content}"></span>
                 <span th:text="${partnerApplicant.author.getNickname}"></span>
             </li>
             <a th:href="@{|/applicant/delete/${partnerApplicant.id}|}"
-               class="recommend btn btn-sm btn-outline-secondary">삭제</a>
+               class="recommend btn btn-sm btn-outline-secondary"
+               sec:authorize="isAuthenticated()"
+               th:if="${partnerApplicant.author != null and #authentication.getPrincipal().getUsername() == partnerApplicant.author.username}" th:Text="삭제"></a>
+<!--        <script scr="https://code.jquery.com/jquery-1.12.4.min.js"></script>-->
+<!--        <script>-->
+<!--            $('#sendPhoenNumber').click(function(){-->
+<!--                let phoneNumber = $ ('#inputPhoneNumber').val();-->
+
+<!--                $('#inputPhoneNumber').val("");-->
+
+<!--                $.ajax({-->
+<!--                    type: "POST",-->
+<!--                    url: "/check/sendSMS",-->
+<!--                    data: {-->
+<!--                        "phone" : phoneNumber-->
+<!--                    },-->
+<!--                    success: function(res){-->
+<!--                        alert('인증 번호 발송 완료!');-->
+<!--                    }-->
+<!--                })-->
+<!--            });-->
+<!--        </script>-->
         </ul>
     </div>
-    <form  th:object="${PAForm}" method="post">
+    <form th:object="${PAForm}" method="post"  sec:authorize="isAuthenticated()"
+          th:if="${partnerPost.author != null and #authentication.getPrincipal().getUsername() != partnerPost.author.username}">
         <div class="alert alert-danger" role="alert" th:if="${#fields.hasAnyErrors()}">
             <div th:each="err : ${#fields.allErrors()}" th:text="${err}"/>
         </div>

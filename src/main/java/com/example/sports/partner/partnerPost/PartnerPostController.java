@@ -59,9 +59,7 @@ public class PartnerPostController {
     public String detail(Model model, @PathVariable(value = "id") long id, PAForm PAForm) {
         PartnerPost partnerPost = this.partnerPostService.getPartnerPost(id);
         model.addAttribute("partnerPost", partnerPost);
-
-        List<PartnerApplicant> partnerApplicant = this.paService.getList();
-        model.addAttribute("PAList", partnerApplicant);
+        System.out.println(partnerPost);
 
         model.addAttribute("PAForm", PAForm);
 
