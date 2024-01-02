@@ -1,5 +1,6 @@
 <html layout:decorate="~{layout}">
 <div layout:fragment="content" class="container my-3">
+    <h2>파트너 찾기</h2>
     <form th:action="@{/partner/list}">
         <div class="col-6">
             <div class="input-group">
@@ -8,18 +9,20 @@
             </div>
         </div>
     </form>
-    <h2>파트너 찾기</h2>
     <table class="table">
         <thead>
         <tr>
+            <th>번호</th>
             <th>제목</th>
             <th>작성 일자</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="partnerPost : ${partnerPostList}">
+        <tr th:each="partnerPost, loop : ${paging}">
+            <td th:text="${loop.count}"></td>
             <td>
                 <a th:href="@{|/partner/detail/${partnerPost.id}|}" th:text="${partnerPost.title}"></a>
+<!--                신청글 갯수 표시-->
 <!--                <span class="text-danger small ms-2"-->
 <!--                      th:if="${#lists.size(partnerPost.paList) > 0}"-->
 <!--                      th:text="${#lists.size(partnerPost.paList)}">-->
@@ -29,6 +32,29 @@
         </tr>
         </tbody>
     </table>
+    <!-- 페이징처리 시작 -->
+    <div th:if="${!paging.isEmpty()}">
+        <ul class="pagination justify-content-center">
+            <li class="page-item" th:classappend="${!paging.hasPrevious} ? 'disabled'">
+                <a class="page-link"
+                   th:href="@{|?page=${paging.number-1}|}">
+                    <span>이전</span>
+                </a>
+            </li>
+            <li th:each="page: ${#numbers.sequence(0, paging.totalPages-1)}"
+                th:if="${page >= paging.number-5 and page <= paging.number+5}"
+                th:classappend="${page == paging.number} ? 'active'"
+                class="page-item">
+                <a th:text="${page}" class="page-link" th:href="@{|?page=${page}|}"></a>
+            </li>
+            <li class="page-item" th:classappend="${!paging.hasNext} ? 'disabled'">
+                <a class="page-link" th:href="@{|?page=${paging.number+1}|}">
+                    <span>다음</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <!-- 페이징처리 끝 -->
     <button type="button" class="btn btn-primary">
         <a th:href="@{/partner/create}" class="btn btn-primary">게시글 작성</a>
     </button>

@@ -10,6 +10,7 @@ import com.example.sports.post.entity.Post;
 import com.example.sports.post.service.PostService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -32,10 +33,18 @@ public class PostController {
 
     private final CommentService commentService;
 
+//    @GetMapping("/list")
+//    public String list(Model model,) {
+//        List<Post> post = this.postService.getList(keyword);
+//        model.addAttribute("postList", post);
+//        return "post_list";
+//    }
+
     @GetMapping("/list")
-    public String list(Model model, @RequestParam(value = "keyword", defaultValue = "") String keyword) {
-        List<Post> post = this.postService.getList(keyword);
-        model.addAttribute("postList", post);
+    public String list(Model model, @RequestParam(value = "page", defaultValue = "0") int page, @RequestParam(value = "keyword", defaultValue = "") String keyword) {
+        Page<Post> paging = this.postService.getList(page, keyword);
+        model.addAttribute("paging", paging);
+        model.addAttribute("keyword", keyword);
         return "post_list";
     }
 

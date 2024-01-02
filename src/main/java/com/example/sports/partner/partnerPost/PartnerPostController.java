@@ -7,6 +7,7 @@ import com.example.sports.partner.partnerApplicant.PAService;
 import com.example.sports.partner.partnerApplicant.PartnerApplicant;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -26,11 +27,12 @@ public class PartnerPostController {
     private final UserService userService;
     private final PAService paService;
 
-    @GetMapping("/list")
-    public String getList(Model model, @RequestParam(value = "keyword", defaultValue = "") String keyword) {
-        List<PartnerPost> partnerPost = this.partnerPostService.getList(keyword);
-        model.addAttribute("partnerPostList", partnerPost);
 
+    @GetMapping("/list")
+    public String getList(Model model, @RequestParam(value = "page", defaultValue = "0") int page, @RequestParam(value = "keyword", defaultValue = "") String keyword) {
+        Page<PartnerPost> paging = this.partnerPostService.getList(page, keyword);
+        model.addAttribute("paging", paging);
+        model.addAttribute("keyword", keyword);
         return "partner_list";
     }
 

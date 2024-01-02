@@ -7,8 +7,11 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -25,9 +28,11 @@ public class PartnerPost {
     @Column(columnDefinition = "TEXT")
     private String content;
 
-    private LocalDate createDate;
+    @CreatedDate
+    private LocalDateTime createDate;
 
-    private LocalDate modifyDate;
+    @LastModifiedDate
+    private LocalDateTime modifyDate;
 
     @ManyToOne
     private Member author;

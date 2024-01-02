@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,7 +29,7 @@ public class PAService {
         partnerApplicant.setContent(content);
         partnerApplicant.setAuthor(author);
         partnerApplicant.setPartnerPost(partnerPost);
-        partnerApplicant.setCreateDate(LocalDate.now());
+        partnerApplicant.setCreateDate(LocalDateTime.now());
 
         this.paRepository.save(partnerApplicant);
     }
@@ -37,10 +38,4 @@ public class PAService {
         this.paRepository.delete(partnerApplicant);
     }
 
-//    public void modify(String content, PartnerApplicant partnerApplicant) {
-//        partnerApplicant.setContent(content);
-//        partnerApplicant.setModifyDate(LocalDate.now());
-//
-//        this.paRepository.save(partnerApplicant);
-//    }
 }

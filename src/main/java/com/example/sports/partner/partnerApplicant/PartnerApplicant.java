@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -19,9 +20,9 @@ public class PartnerApplicant {
     @Column(columnDefinition = "TEXT")
     private String content;
 
-    private LocalDate createDate;
+    private LocalDateTime createDate;
 
-    private LocalDate modifyDate;
+    private LocalDateTime modifyDate;
 
     @ManyToOne
     private Member author;

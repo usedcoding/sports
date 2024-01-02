@@ -6,6 +6,9 @@ import com.example.sports.member.Member;
 import com.example.sports.post.entity.Post;
 import com.example.sports.post.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -17,8 +20,9 @@ import java.util.Optional;
 public class PostService {
     private final PostRepository postRepository;
 
-    public List<Post> getList(String keyword) {
-        return this.postRepository.findAllByKeyword(keyword);
+    public Page<Post> getList(int page,  String keyword) {
+        Pageable pageable = PageRequest.of(page, 10);
+        return this.postRepository.findAllByKeyword(keyword, pageable);
     }
 
     public Post getPost(Long id) {

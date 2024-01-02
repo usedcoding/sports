@@ -1,3 +1,8 @@
-.comment-option{
-    display:flex
+.layout{
+    display:flex;
+    justify-content:space-evenly;
+}
+
+.container-fluid{
+    display:flex;
 }

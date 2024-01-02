@@ -12,6 +12,7 @@ import java.util.List;
 
 @Repository
 public interface PostRepository extends JpaRepository<Post, Long> {
+    Page<Post> findAll(Pageable pageable);
 
     @Query("select "
             + "distinct P "
@@ -21,5 +22,5 @@ public interface PostRepository extends JpaRepository<Post, Long> {
             + "   P.title like %:keyword% "
             + "   or P.content like %:keyword% "
             + "   or U.username like %:keyword% ")
-    List<Post> findAllByKeyword(@Param("keyword") String keyword);
+    Page<Post> findAllByKeyword(@Param("keyword") String keyword, Pageable pageable);
 }
