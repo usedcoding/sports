@@ -1,8 +1,5 @@
 package com.example.sports.member;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
@@ -24,4 +21,7 @@ public class UserCreateForm {
     @NotEmpty(message = "이메일은 필수 사항 입니다.")
     @Email
     private String username;
+
+    private String phoneNum1;
+    private String phoneNum2;
 }

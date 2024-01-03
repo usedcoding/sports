@@ -1,10 +1,9 @@
-package com.example.sports.partner.partnerApplicant;
+package com.example.sports.partner.offer;
 
 import com.example.sports.member.Member;
 import com.example.sports.member.UserService;
 import com.example.sports.partner.partnerPost.PartnerPost;
 import com.example.sports.partner.partnerPost.PartnerPostService;
-import com.example.sports.post.entity.Post;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -12,23 +11,26 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.security.Principal;
-import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/applicant")
-public class PAController {
-    private final PAService paService;
+@RequestMapping("/offer")
+public class OfferController {
+    private final OfferService offerService;
     private final PartnerPostService partnerPostService;
     private final UserService userService;
 
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/create/{id}")
-    public String create(@PathVariable(value = "id") Long id, @Valid PAForm PAForm, BindingResult bindingResult, Model model, Principal principal) {
+    public String create(@PathVariable(value = "id") Long id, @Valid OfferForm offerForm, BindingResult bindingResult, Model model, Principal principal) {
+
         PartnerPost partnerPost = this.partnerPostService.getPartnerPost(id);
         Member member = this.userService.getMember(principal.getName());
 
@@ -36,7 +38,7 @@ public class PAController {
             return "partner_detail";
         }
 
-        this.paService.create(partnerPost, PAForm.getContent(), member);
+        this.offerService.create(partnerPost, offerForm.getContent(), member);
 
         return String.format("redirect:/partner/detail/%d", id);
     }
@@ -44,14 +46,14 @@ public class PAController {
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable(value = "id") Long id, Model model, Principal principal) {
-        PartnerApplicant partnerApplicant = this.paService.getPartnerApplicant(id);
-        model.addAttribute("partnerApplicant", partnerApplicant);
+        Offer offer = this.offerService.getOffer(id);
+        model.addAttribute("offer", offer);
 
-        if (!partnerApplicant.getAuthor().getUsername().equals(principal.getName())) {
+        if (!offer.getAuthor().getUsername().equals(principal.getName())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제권한이 없습니다.");
         }
 
-        this.paService.delete(partnerApplicant);
-        return String.format("redirect:/partner/detail/%d", partnerApplicant.getPartnerPost().getId());
+        this.offerService.delete(offer);
+        return String.format("redirect:/partner/detail/%d", offer.getPartnerPost().getId());
     }
 }

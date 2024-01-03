@@ -29,38 +29,44 @@
             </div>
         </div>
     </div>
-    <div th:each="partnerApplicant : ${partnerPost.partnerApplicantList}">
+    <div th:each="offer : ${partnerPost.offerList}">
         <ul>
             <li>
-                <span th:text="${partnerApplicant.content}"></span>
-                <span th:text="${partnerApplicant.author.getNickname}"></span>
+                <span th:text="${offer.content}"></span>
+                <span th:text="${offer.author.getNickname}"></span>
             </li>
-            <a th:href="@{|/applicant/delete/${partnerApplicant.id}|}"
+            <form th:action="@{|/partner/allow/${offer.id}|}"
+                  sec:authorize="isAuthenticated()"
+                  th:if="${offer.author != null and #authentication.getPrincipal().getUsername() == partnerPost.author.username}">
+                <button type="submit" class="recommend btn btn-sm btn-outline-secondary"> 수락</button>
+            </form>
+            <a th:href="@{|/offer/delete/${offer.id}|}"
                class="recommend btn btn-sm btn-outline-secondary"
                sec:authorize="isAuthenticated()"
-               th:if="${partnerApplicant.author != null and #authentication.getPrincipal().getUsername() == partnerApplicant.author.username}" th:Text="삭제"></a>
-<!--        <script scr="https://code.jquery.com/jquery-1.12.4.min.js"></script>-->
-<!--        <script>-->
-<!--            $('#sendPhoenNumber').click(function(){-->
-<!--                let phoneNumber = $ ('#inputPhoneNumber').val();-->
+               th:if="${offer.author != null and #authentication.getPrincipal().getUsername() == offer.author.username}"
+               th:Text="삭제"></a>
+<!--                    <script scr="https://code.jquery.com/jquery-1.12.4.min.js"></script>-->
+<!--                    <script>-->
+<!--                        $('#sendPhoenNumber').click(function(){-->
+<!--                            let phoneNumber = $ ('#inputPhoneNumber').val();-->
 
-<!--                $('#inputPhoneNumber').val("");-->
+<!--                            $('#inputPhoneNumber').val("");-->
 
-<!--                $.ajax({-->
-<!--                    type: "POST",-->
-<!--                    url: "/check/sendSMS",-->
-<!--                    data: {-->
-<!--                        "phone" : phoneNumber-->
-<!--                    },-->
-<!--                    success: function(res){-->
-<!--                        alert('인증 번호 발송 완료!');-->
-<!--                    }-->
-<!--                })-->
-<!--            });-->
-<!--        </script>-->
+<!--                            $.ajax({-->
+<!--                                type: "POST",-->
+<!--                                url: "/check/sendSMS",-->
+<!--                                data: {-->
+<!--                                    "phone" : phoneNumber-->
+<!--                                },-->
+<!--                                success: function(res){-->
+<!--                                    alert('인증 번호 발송 완료!');-->
+<!--                                }-->
+<!--                            })-->
+<!--                        });-->
+<!--                    </script>-->
         </ul>
     </div>
-    <form th:object="${PAForm}" method="post"  sec:authorize="isAuthenticated()"
+    <form th:object="${offerForm}" method="post" sec:authorize="isAuthenticated()"
           th:if="${partnerPost.author != null and #authentication.getPrincipal().getUsername() != partnerPost.author.username}">
         <div class="alert alert-danger" role="alert" th:if="${#fields.hasAnyErrors()}">
             <div th:each="err : ${#fields.allErrors()}" th:text="${err}"/>

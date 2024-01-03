@@ -1,4 +1,4 @@
-package com.example.sports.partner.partnerApplicant;
+package com.example.sports.partner.offer;
 
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
@@ -6,7 +6,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class PAForm {
+public class OfferForm {
 
     @NotEmpty(message = "내용은 필수 사항 입니다.")
     private String content;

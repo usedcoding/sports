@@ -1,10 +1,11 @@
 package com.example.sports.partner.partnerPost;
 
+import com.example.sports.SmsUtil;
 import com.example.sports.member.Member;
 import com.example.sports.member.UserService;
-import com.example.sports.partner.partnerApplicant.PAForm;
-import com.example.sports.partner.partnerApplicant.PAService;
-import com.example.sports.partner.partnerApplicant.PartnerApplicant;
+import com.example.sports.partner.offer.Offer;
+import com.example.sports.partner.offer.OfferForm;
+import com.example.sports.partner.offer.OfferService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -17,7 +18,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.security.Principal;
-import java.util.List;
 
 @Controller
 @RequestMapping("/partner")
@@ -25,7 +25,8 @@ import java.util.List;
 public class PartnerPostController {
     private final PartnerPostService partnerPostService;
     private final UserService userService;
-    private final PAService paService;
+    private final OfferService offerService;
+    private final SmsUtil smsUtil;
 
 
     @GetMapping("/list")
@@ -58,19 +59,19 @@ public class PartnerPostController {
     //비회원도 볼 수 있게 해야 한다.
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/detail/{id}")
-    public String detail(Model model, @PathVariable(value = "id") long id, PAForm PAForm) {
+    public String detail(Model model, @PathVariable(value = "id") long id, OfferForm offerForm) {
         PartnerPost partnerPost = this.partnerPostService.getPartnerPost(id);
         model.addAttribute("partnerPost", partnerPost);
         System.out.println(partnerPost);
 
-        model.addAttribute("PAForm", PAForm);
+        model.addAttribute("offerForm", offerForm);
 
         return "partner_detail";
     }
 
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/detail/{id}")
-    public String detail(@PathVariable(value = "id") Long id, @Valid PAForm PAForm, BindingResult bindingResult, Model model, Principal principal) {
+    public String detail(@PathVariable(value = "id") Long id, @Valid OfferForm offerForm, BindingResult bindingResult, Model model, Principal principal) {
         PartnerPost partnerPost = this.partnerPostService.getPartnerPost(id);
         Member member = this.userService.getMember(principal.getName());
 
@@ -81,7 +82,7 @@ public class PartnerPostController {
             return "partner_detail";
         }
 
-        this.paService.create(partnerPost, PAForm.getContent(), member);
+        this.offerService.create(partnerPost, offerForm.getContent(), member);
         return String.format("redirect:/partner/detail/%d", id);
     }
 
@@ -118,7 +119,7 @@ public class PartnerPostController {
         PartnerPost partnerPost = this.partnerPostService.getPartnerPost(id);
         model.addAttribute("partnerPost", partnerPost);
 
-        if(bindingResult.hasErrors()) {
+        if (bindingResult.hasErrors()) {
             return "partner_modify";
         }
 
@@ -130,4 +131,17 @@ public class PartnerPostController {
 
         return String.format("redirect:/partner/detail/%d", id);
     }
+
+    @GetMapping("/allow/{id}")
+    public String allow(@PathVariable("id") Long id, Model model) {
+        Offer offer = this.offerService.getOffer(id);
+        model.addAttribute("offer", offer);
+
+        String from = offer.getPartnerPost().getAuthor().getPhoneNum();
+        String to = offer.getAuthor().getPhoneNum();
+                smsUtil.sendOne(from, to);
+        return String.format("redirect:/partner/detail/%d", offer.getPartnerPost().getId());
+    }
+    //view  post 해결 및 코드 수정 필요
+
 }

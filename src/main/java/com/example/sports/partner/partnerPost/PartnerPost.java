@@ -1,16 +1,13 @@
 package com.example.sports.partner.partnerPost;
 
-import com.example.sports.comment.Comment;
 import com.example.sports.member.Member;
-import com.example.sports.partner.partnerApplicant.PartnerApplicant;
+import com.example.sports.partner.offer.Offer;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -39,5 +36,5 @@ public class PartnerPost {
 
     //cascade = CascadeType.REMOVE -> 부모 엔티티 삭제시 자식 엔티티도 삭제
     @OneToMany(mappedBy = "partnerPost", cascade = CascadeType.REMOVE)
-    private List<PartnerApplicant> partnerApplicantList;
+    private List<Offer> offerList;
 }

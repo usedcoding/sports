@@ -1,4 +1,3 @@
-
 <!--회원가입 기능 시작-->
 <html layout:decorate="~{layout}">
 <div layout:fragment="content" class="container my-3">
@@ -24,6 +23,14 @@
         <div class="mb-3">
             <label for="nickname" class="form-label">닉네임</label>
             <input type="text" th:field="*{nickname}" class="form-control">
+        </div>
+        <div class="mb-1">
+            <label for="phoneNum1" class="form-label">전화번호</label>
+            <input  type="text" th:field="*{phoneNum1}" class="form-control">
+        </div>
+        <div class="mb-1">
+            <label for="phoneNum2" class="form-label"></label>
+            <input  type="text" th:field="*{phoneNum2}" class="form-control">
         </div>
         <button type="submit" class="btn btn-primary">회원가입</button>
     </form>
