@@ -11,13 +11,13 @@ ul,li{
 /* 스타일 시작 */
 
 .container{
-  width: 1200px;
+
   text-align:center;
 }
 
 .wrap{
   display:inline-block;
-  width: 900px;
+
 }
 
 .category{
