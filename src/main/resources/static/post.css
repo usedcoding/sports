@@ -18,6 +18,8 @@ ul,li{
 
 .wrap{
   width:90%;
+  text-align:center;
+
 
 }
 
@@ -27,6 +29,7 @@ ul,li{
   font-weight: bold;
   margin-bottom: 40px;
   margin-top: 30px;
+  text-align:center;
 }
 
  table {
