@@ -1,30 +1,39 @@
-<!--<a th:href="@{/main}">로고</a>-->
-
-<!--게시글 수정 시작-->
-<!--<form th:action="@{|/post/modify/${post.id}|}" method="post">-->
-<!--    제목<input type="text" name="title">-->
-<!--    <br>-->
-<!--    내용<textarea name="content" id="" cols="30" rows="10"></textarea>-->
-<!--    <button type="submit">게시글 수정</button>-->
-<!--</form>-->
-<!--게시글 수정 끝-->
-
+<!DOCTYPE html>
 <html layout:decorate="~{layout}">
-<div layout:fragment="content" class="container">
-    <h5 class="my-3 border-bottom pb-2">게시글 수정</h5>
-    <form th:action="@{|/post/modify/${post.id}|}" th:object="${postForm}" method="post">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/postForm.css}">
+</head>
+<body>
+<div layout:fragment="content">
+    <form th:action="@{|/post/modify/{post.id}|}" th:object="${postForm}" method="post">
         <div class="alert alert-danger" role="alert" th:if="${#fields.hasAnyErrors()}">
             <div th:each="err : ${#fields.allErrors()}" th:text="${err}"/>
         </div>
-        <div class="mb-3">
-            <label for="title" class="form-label">제목</label>
-            <input type="text" name="title" id="title" class="form-control">
+        <div class="wrap">
+            <div class="category">
+                <div class="text">
+                    커뮤니티 게시판
+                </div>
+            </div>
+            <div class="login-box">
+                <div class="user">
+                    <div class="id">
+                        <input name="title" id="title" placeholder="제목" class="id-input"
+                               type="text"  th:field="*{title}">
+                    </div>
+                    <div class="ps">
+                        <input name="content" id="content" placeholder="내용" class="ps-input" type="text"  th:field="*{content}">
+                    </div>
+                </div>
+                <div class="login-btn">
+                    <button type="submit" class="btn">수정하기</button>
+                </div>
+            </div>
         </div>
-        <div class="mb-3">
-            <label for="content" class="form-label">내용</label>
-            <textarea name="content" id="content" class="form-control" rows="10"></textarea>
-        </div>
-        <input type="submit" value="수정하기" class="btn btn-primary my-2">
     </form>
 </div>
+</body>
 </html>
+
