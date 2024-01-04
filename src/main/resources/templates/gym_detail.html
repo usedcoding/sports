@@ -1,28 +1,37 @@
-<!--<div th:text="${gym.title}"></div>-->
-<!--<div th:text="${gym.address}"></div>-->
-<!--<div th:text="${gym.time}"></div>-->
-<!--<div th:text="${gym.phoneNum}"></div>-->
-
-
+<!DOCTYPE html>
 <html layout:decorate="~{layout}">
-<div layout:fragment="content" class="container my-3">
-    <!-- 질문 -->
-    <h2 class="border-bottom py-2" th:text="${gym.title}"></h2>
-    <div class="card my-3">
-        <div class="card-body">
-            <div class="card-text" style="white-space: pre-line;">
-                <div th:text="${gym.address}"></div>
-                <div th:text="${gym.time}"></div>
-                <div th:text="${gym.price}"></div>
-                <div th:text="${gym.phoneNum}"></div>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/gymDetail.css}">
+</head>
+<body>
+<div layout:fragment="content">
+<div class="container">
+    <div class="box">
+        <div class="gym-img">
+            <div class="img-box">
+                <img th:src="@{|/file/${gym.thumbnailImg}|}" class="card-img-top" alt="...">
             </div>
-            <div class="d-flex justify-content-end">
+        </div>
+        <div class="info-box">
+            <div class="address-box">
+                <div class="address">
+                    <span th:text="${gym.address}"></span>
+                </div>
+                <div class="working-time">
+                    <div>운영시간 : <span th:text="${gym.time}"></span></div>
+                </div>
+                <div class="cost">일일권 가격 :<span th:text="${gym.price}"></span>원</div>
+                <div class="phone-number">
+                    <span th:text="${gym.phoneNum}"></span>
+                </div>
             </div>
         </div>
     </div>
 </div>
+    <a th:href="@{|/gym/delete/${gym.id}|}"> 삭제 </a>
+    <a th:href="@{|/gym/modify/${gym.id}|}"> 수정 </a>
+</div>
+</body>
 </html>
-
-<a th:href="@{|/gym/delete/${gym.id}|}"> 삭제 </a>
-<a th:href="@{|/gym/modify/${gym.id}|}"> 수정 </a>
-

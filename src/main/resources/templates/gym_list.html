@@ -1,62 +1,121 @@
+
+
+<!--    <h2>헬스장 찾기</h2>-->
+<!--    <form th:action="@{/gym/list}">-->
+<!--        <div class="col-6">-->
+<!--            <div class="input-group">-->
+<!--                <input type="text" name="keyword">-->
+<!--                <button class="btn btn-outline-secondary" type="submit">찾기</button>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </form>-->
+<!--    <table class="table">-->
+<!--        <thead>-->
+<!--        <tr>-->
+<!--            <th>헬스장</th>-->
+<!--        </tr>-->
+<!--        </thead>-->
+<!--        <tbody>-->
+<!--        <tr th:each="gym, loop : ${paging}">-->
+<!--            <td>-->
+<!--                <div class="row row-cols-1 row-cols-md-5 g-4">-->
+<!--                    <div class="col">-->
+<!--                        <div class="card">-->
+
+<!--                            <div class="card-body">-->
+<!--                                <h5 class="card-title"></h5>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--        </tr>-->
+<!--        </tbody>-->
+<!--    </table>-->
+
+<!--    <a th:href="@{/gym/create}">게시글 작성</a>-->
+
+
+
+<!--    &lt;!&ndash; 페이징처리 시작 &ndash;&gt;-->
+<!--    <nav th:if="${!paging.isEmpty()}" th:with="kwBase = '?kw=' + ${param.kw != null ? param.kw : ''}" >-->
+<!--        <ul class="pagination justify-content-center">-->
+<!--            <li class="page-item" th:classappend="${!paging.hasPrevious} ? 'disabled'">-->
+<!--                <a class="page-link" th:href="@{|${kwBase}&page=${paging.number - 1}|}">이전</a>-->
+<!--            </li>-->
+
+<!--            <li th:each="page: ${#numbers.sequence(0, paging.totalPages-1)}"-->
+<!--                th:if="${page >= paging.number-5 and page <= paging.number+5}"-->
+<!--                th:classappend="${page == paging.number} ? 'active'"-->
+<!--                class="page-item">-->
+<!--                <a  th:text="${page + 1}" class="page-link" th:href="@{|${kwBase}&page=${page}|}"></a>-->
+<!--            </li>-->
+
+<!--            <li class="page-item" th:classappend="${!paging.hasNext} ? 'disabled'">-->
+<!--                <a class="page-link" th:href="@{|${kwBase}&page=${paging.number + 1}|}">다음</a>-->
+<!--            </li>-->
+<!--        </ul>-->
+<!--    </nav>-->
+<!--    &lt;!&ndash; 페이징처리 끝 &ndash;&gt;-->
+<!--</div>-->
+<!--</html>-->
+
+<!DOCTYPE html>
 <html layout:decorate="~{layout}">
-<div layout:fragment="content" class="container my-3">
-    <h2>헬스장 찾기</h2>
-    <form th:action="@{/gym/list}">
-        <div class="col-6">
-            <div class="input-group">
-                <input type="text" name="keyword">
-                <button class="btn btn-outline-secondary" type="submit">찾기</button>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/gym.css}">
+</head>
+<body>
+<div layout:fragment="content">
+<div class="wrap">
+    <div class="title-box">
+        <div class="title">
+            <div class="text">
+                헬스장 검색
             </div>
         </div>
-    </form>
-    <table class="table">
-        <thead>
-        <tr>
-            <th>헬스장</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="gym, loop : ${paging}">
-            <td>
-                <div class="row row-cols-1 row-cols-md-5 g-4">
-                    <div class="col">
-                        <div class="card">
+    </div>
+    <div class="list-wrap">
+        <div class="list">
+            <ul id="holy">
+                <li>
+                    <a href="">
+                        <div class="img-box">
                             <a th:href="@{|/gym/detail/${gym.id}|}">
-                                <img th:src="@{|/file/${gym.thumbnailImg}|}" class="card-img-top" alt="...">
+
                             </a>
-                            <div class="card-body">
-                                <h5 class="card-title" th:text="${gym.title}"></h5>
-                            </div>
                         </div>
-                    </div>
-                </div>
-        </tr>
-        </tbody>
-    </table>
-
-    <a th:href="@{/gym/create}">게시글 작성</a>
-
-
-
-    <!-- 페이징처리 시작 -->
-    <nav th:if="${!paging.isEmpty()}" th:with="kwBase = '?kw=' + ${param.kw != null ? param.kw : ''}" >
-        <ul class="pagination justify-content-center">
+                        <div class="gym-name">
+                            <span th:text="${gym.title}"></span>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div th:if="${!paging.isEmpty()}" style="text-align: center;">
+        <ul class=" page-btn pagination1 justify-content-center">
             <li class="page-item" th:classappend="${!paging.hasPrevious} ? 'disabled'">
-                <a class="page-link" th:href="@{|${kwBase}&page=${paging.number - 1}|}">이전</a>
+                <a class="page-link1" th:href="${paging.hasPrevious} ? @{|?page=${paging.number-1}|} : @{|?page=0|}">
+                    <span><</span>
+                </a>
             </li>
-
             <li th:each="page: ${#numbers.sequence(0, paging.totalPages-1)}"
                 th:if="${page >= paging.number-5 and page <= paging.number+5}"
                 th:classappend="${page == paging.number} ? 'active'"
                 class="page-item">
-                <a  th:text="${page + 1}" class="page-link" th:href="@{|${kwBase}&page=${page}|}"></a>
+                <a th:text="${page+1}" class="page-link1" th:href="@{|?page=${page}|}"></a>
             </li>
-
             <li class="page-item" th:classappend="${!paging.hasNext} ? 'disabled'">
-                <a class="page-link" th:href="@{|${kwBase}&page=${paging.number + 1}|}">다음</a>
+                <a class="page-link1" th:href="@{|?page=${paging.number+1}|}">
+                    <span>></span>
+                </a>
             </li>
         </ul>
-    </nav>
-    <!-- 페이징처리 끝 -->
+    </div>
 </div>
+</div>>
+</body>
 </html>
+
