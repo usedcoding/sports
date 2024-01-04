@@ -12,11 +12,12 @@ ul,li{
 
 .container{
 
-  text-align:center;
+  display:flex;
+  justify-content:center;
 }
 
 .wrap{
-  display:inline-block;
+  width:90%;
 
 }
 
