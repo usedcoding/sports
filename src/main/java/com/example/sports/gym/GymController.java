@@ -44,7 +44,7 @@ public class GymController {
     }
 
     @PostMapping("/create")
-    public String create(@Valid GymForm gymForm, BindingResult bindingResult, Principal principal, MultipartFile thumnail) {
+    public String create(@Valid GymForm gymForm, BindingResult bindingResult, Principal principal, @RequestParam("thumbnail") MultipartFile thumbnail) {
 
         if(bindingResult.hasErrors()) {
             return "gym_form";
@@ -52,7 +52,7 @@ public class GymController {
 
         Member member = this.userService.getMember(principal.getName());
 
-        this.gymService.create(gymForm.getTitle(), gymForm.getPhoneNum(), gymForm.getTime(), gymForm.getPrice(), gymForm.getAddress(),member,thumnail);
+        this.gymService.create(gymForm.getTitle(), gymForm.getPhoneNum(), gymForm.getTime(), gymForm.getPrice(), gymForm.getAddress(),member,thumbnail);
         return"redirect:/gym/list";
     }
 
