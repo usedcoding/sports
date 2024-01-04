@@ -1,13 +1,13 @@
-<!--파트너 글 페이지-->
-<!--<form th:object="${paForm}" method="post">-->
-<!--    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />-->
-<!--    <textarea th:field="*{content}" id="" cols="10" rows="10"></textarea>-->
-<!--    <button type="submit">신청글 작성</button>-->
-<!--</form>-->
-
+<!DOCTYPE html>
 <html layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css">
+</head>
+<body>
+<!-- 질문 -->
 <div layout:fragment="content" class="container my-3">
-    <!-- 질문 -->
     <h2 class="border-bottom py-2" th:text="${partnerPost.title}"></h2>
     <div class="card my-3">
         <div class="card-body">
@@ -45,25 +45,6 @@
                sec:authorize="isAuthenticated()"
                th:if="${offer.author != null and #authentication.getPrincipal().getUsername() == offer.author.username}"
                th:Text="삭제"></a>
-<!--                    <script scr="https://code.jquery.com/jquery-1.12.4.min.js"></script>-->
-<!--                    <script>-->
-<!--                        $('#sendPhoenNumber').click(function(){-->
-<!--                            let phoneNumber = $ ('#inputPhoneNumber').val();-->
-
-<!--                            $('#inputPhoneNumber').val("");-->
-
-<!--                            $.ajax({-->
-<!--                                type: "POST",-->
-<!--                                url: "/check/sendSMS",-->
-<!--                                data: {-->
-<!--                                    "phone" : phoneNumber-->
-<!--                                },-->
-<!--                                success: function(res){-->
-<!--                                    alert('인증 번호 발송 완료!');-->
-<!--                                }-->
-<!--                            })-->
-<!--                        });-->
-<!--                    </script>-->
         </ul>
     </div>
     <form th:object="${offerForm}" method="post" sec:authorize="isAuthenticated()"
@@ -76,4 +57,5 @@
         <button type="submit">신청글 작성</button>
     </form>
 </div>
+</body>
 </html>

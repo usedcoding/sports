@@ -76,7 +76,7 @@
         <div class="list-wrap">
             <div class="list">
                 <ul id="holy">
-                    <li  th:each="gym, loop : ${paging}">
+                    <li th:each="gym, loop : ${paging}">
                         <div class="img-box">
                             <a th:href="@{|/gym/detail/${gym.id}|}">
                                 <img th:src="@{|/file/${gym.thumbnailImg}|}" alt="">

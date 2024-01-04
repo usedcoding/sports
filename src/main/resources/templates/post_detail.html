@@ -1,12 +1,12 @@
-<!--<a th:href="@{|/post/delete/${post.id}|}"> 삭제 </a>-->
-<!--<br>-->
-
-
-<!--<a th:href="@{|/post/modify/${post.id}|}"> 수정 </a>-->
-
+<!DOCTYPE html>
 <html layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css">
+</head>
+<body>
 <div layout:fragment="content" class="container my-3">
-    <!-- 질문 -->
     <h2 class="border-bottom py-2" th:text="${post.title}"></h2>
     <div class="card my-3">
         <div class="card-body">
@@ -63,4 +63,7 @@
         <button type="submit">등록</button>
     </form>
 </div>
+</body>
 </html>
+
+

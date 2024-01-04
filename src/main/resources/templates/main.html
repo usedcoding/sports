@@ -8,7 +8,7 @@
 <div class="wrap">
     <div class="logo-box">
         <div class="logo">
-            <a href="">buddy</a>
+            <a th:href="@{/main}">buddy</a>
         </div>
     </div>
     <nav>
@@ -19,7 +19,7 @@
         </ul>
         <ul class="nav2">
             <li><a sec:authorize="isAnonymous()" th:href="@{/user/login}">로그인</a></li>
-            <li><a sec:authorize="isAuthenticated()" th:href="@{/user/logout}">로그아웃</a></li>
+            <li><a sec:authorize="isAuthenticated()" th:href="@{/user/logout}">로그아웃</a>
             <li><a th:href="@{/user/signup}">회원가입</a></li>
         </ul>
     </nav>
