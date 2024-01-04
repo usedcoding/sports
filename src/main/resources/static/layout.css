@@ -1,9 +1,9 @@
-.wrap{
+.wrapping{
 
 
 }
 
-.wrap>.logo-box{
+.wrapping>.logo-box{
   text-align:center;
   font-weight:bold;
   font-size:60px;
@@ -11,12 +11,12 @@
   margin-top: 30px;
 }
 
-.wrap>.search{
+.wrapping>.search{
   text-align:center;
 }
 
 
-.wrap>.search>.search-box{
+.wrapping>.search>.search-box{
   display:inline-block;
   position:relative;
   width: 400px;
@@ -24,7 +24,7 @@
   margin-bottom: 20px;
 }
 
-.wrap>.search>.search-box>#search-form>input{
+.wrapping>.search>.search-box>#search-form>input{
   width: 370px;
   border: 1px solid #bbb;
   border-radius: 8px;
@@ -33,7 +33,7 @@
 }
 
 
-.wrap>.search>.search-box>#search-form>button>img{
+.wrapping>.search>.search-box>#search-form>button>img{
   position : absolute;
   width: 20px;
   top: 10px;
@@ -71,27 +71,27 @@
 
 
 
-.wrap>nav{
+.wrapping>nav{
   display:flex;
   justify-content:space-between;
 }
 
-.wrap>nav>ul{
+.wrapping>nav>ul{
   display:flex;
   justify-content:space-around;
 }
 
-.wrap>nav>ul>li{
+.wrapping>nav>ul>li{
   margin-right: 5px;
   margin-left:5px;
   font-size:20px;
 }
 
-.wrap>nav>.nav1{
+.wrapping>nav>.nav1{
   width: 40%;
 }
 
-.wrap>nav>.nav2{
+.wrapping>nav>.nav2{
   width: 20%;
   margin-right: 50px;
 }
