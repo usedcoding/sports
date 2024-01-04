@@ -51,7 +51,7 @@ public class UserController {
             bindingResult.reject("signupFailed", e.getMessage());
             return "signup_form";
         }
-        return "redirect:/post/list";
+        return "redirect:/";
     }
 
     @GetMapping("/login")

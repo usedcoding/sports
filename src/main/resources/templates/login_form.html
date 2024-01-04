@@ -1,22 +1,79 @@
-<!--로그인 기능 시작-->
-<html layout:decorate="~{layout}">
-<div layout:fragment="content" class="container my-3">
-    <form th:action="@{/user/login}" method="post">
-        <div th:if="${param.error}">
-            <div class="alert alert-danger">
-                이메일 또는 비밀번호를 확인해 주세요.
+<!--&lt;!&ndash;로그인 기능 시작&ndash;&gt;-->
+<!--<html layout:decorate="~{layout}">-->
+<!--<div layout:fragment="content" class="container my-3">-->
+<!--    <form th:action="@{/user/login}" method="post">-->
+<!--        <div th:if="${param.error}">-->
+<!--            <div class="alert alert-danger">-->
+<!--                이메일 또는 비밀번호를 확인해 주세요.-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="mb-3">-->
+<!--            <label for="username" class="form-label">이메일</label>-->
+<!--            <input class="form-control">-->
+<!--        </div>-->
+<!--        <div class="mb-3">-->
+<!--            <label for="password" class="form-label">비밀번호</label>-->
+<!--            <input  class="form-control">-->
+<!--        </div>-->
+<!--        <button type="submit" class="btn btn-primary">로그인</button>-->
+<!--    </form>-->
+<!--</div>-->
+<!--</html>-->
+<!--&lt;!&ndash;로그인 기능 끝&ndash;&gt;-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/login.css}">
+</head>
+<body>
+<form th:action="@{/user/login}" method="post">
+    <div class="wrap">
+        <div class="top-bar">
+            <div class="logo-box">
+                <div class="logo">
+                    <a th:href="@{/main}">
+                        <div class="logo-text">
+                            buddy
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="user-box">
+                <div class="login"><a sec:authorize="isAnonymous()" th:href="@{/user/login}">로그인</a></div>
+                <div class="login"><a sec:authorize="isAuthenticated()" th:href="@{/user/logout}">로그아웃</a></div>
+                <div class="sign-up"><a th:href="@{|/user/signup|}">회원가입</a></div>
             </div>
         </div>
-        <div class="mb-3">
-            <label for="username" class="form-label">이메일</label>
-            <input type="text" name="username" id="username" class="form-control">
+        <div class="hello">
+            <div class="hello-box">
+                <div class="title">반갑습니다!</div>
+                <div class="text">이메일로 로그인해주세요.</div>
+            </div>
         </div>
-        <div class="mb-3">
-            <label for="password" class="form-label">비밀번호</label>
-            <input type="password" name="password" id="password" class="form-control">
+        <div class="login-box">
+            <div class="user">
+                <div class="id">
+                    <input name="username" id="username" placeholder="ex)  example@example.com" class="id-input"
+                           type="email">
+                </div>
+                <div class="ps">
+                    <input name="password" id="password" placeholder=" 비밀번호를 입력해주세요." class="ps-input" type="password">
+                </div>
+            </div>
+            <div class="login-btn">
+                <button type="submit" class="btn">로그인</button>
+            </div>
+            <!--            <div class="kakao">-->
+            <!--                <a href="/oauth2/authorization/kakao">카카오로 시작하기</a>-->
+            <!--            </div>-->
+            <div class="signup-btn">
+                <a th:href="@{|/user/signup|}">이메일로 회원가입</a>
+            </div>
         </div>
-        <button type="submit" class="btn btn-primary">로그인</button>
-    </form>
-</div>
+    </div>
+</form>
+</body>
 </html>
-<!--로그인 기능 끝-->

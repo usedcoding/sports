@@ -1,0 +1,98 @@
+li{
+  list-style:none;
+}
+
+a {
+  text-decoration: none;
+  color:black;
+}
+
+.wrap{
+
+
+}
+
+.wrap>.logo-box{
+  text-align:center;
+  font-weight:bold;
+  font-size:60px;
+  margin-bottom: 20px;
+  margin-top: 30px;
+}
+
+.wrap>nav{
+  display:flex;
+  justify-content:space-between;
+}
+
+.wrap>nav>ul{
+  display:flex;
+  justify-content:space-around;
+}
+
+.wrap>nav>ul>li{
+  margin-right: 5px;
+  margin-left:5px;
+  font-size:20px;
+}
+
+.wrap>nav>.nav1{
+  width: 40%;
+}
+
+.wrap>nav>.nav2{
+  width: 20%;
+  margin-right: 50px;
+}
+
+.banner{
+  margin-top: 30px;
+  display:flex;
+  justify-content:space-evenly;
+
+}
+
+.wrap>.banner>.banner1>.img{
+  border:1px solid white;
+
+}
+
+.wrap>.banner>.banner1>.img>a>img{
+  width:400px;
+  height: 600px;
+  border-radius:50px;
+}
+
+.wrap>.banner>.banner1>.text{
+  text-align:center;
+  font-size:24px;
+  font-weight:bold;
+  margin-top: 20px;
+}
+
+.wrap>.banner>.banner2>.img>a>img{
+  width:400px;
+  height: 600px;
+  border-radius:50px;
+}
+
+.wrap>.banner>.banner2>.text{
+  text-align:center;
+  font-size:24px;
+  font-weight:bold;
+  margin-top: 20px;
+}
+
+
+.wrap>.banner>.banner3>.img>a>img{
+  width:400px;
+  height: 600px;
+  border-radius:50px;
+}
+
+.wrap>.banner>.banner3>.text{
+  text-align:center;
+  font-size:24px;
+  font-weight:bold;
+  margin-top: 20px;
+}
