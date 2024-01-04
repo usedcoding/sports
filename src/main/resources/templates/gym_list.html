@@ -26,6 +26,8 @@
         </tbody>
     </table>
 
+    <a th:href="@{/gym/create}">게시글 작성</a>
+
 <!--    th 문법으로 list 출력-->
 <!--    <div class="row row-cols-1 row-cols-md-3 g-4">-->
 <!--        <div class="col">-->
@@ -45,7 +47,7 @@
                     <span>이전</span>
                 </a>
             </li>
-            <li th:each="page: ${#numbers.sequence(0, paging.totalPages-1)}"
+            <li th:each="page: ${#numbers.sequence(1, paging.totalPages-1)}"
                 th:if="${page >= paging.number-5 and page <= paging.number+5}"
                 th:classappend="${page == paging.number} ? 'active'"
                 class="page-item">

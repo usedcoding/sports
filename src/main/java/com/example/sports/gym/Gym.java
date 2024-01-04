@@ -1,5 +1,6 @@
 package com.example.sports.gym;
 
+import com.example.sports.member.Member;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -32,4 +33,7 @@ public class Gym {
     private LocalDateTime modifyDate;
 
     private String thumbnailImg;
+
+    @ManyToOne
+    private Member author;
 }
