@@ -14,10 +14,10 @@ public class SmsUtil {
     //value 사용 했더니 오류 발생 해결 필요
     //child "apiKey" fails because ["apiKey" length must be 16 characters long]
 //   @Value("${coolsms.api.key}")
-    private String apiKey = "NCS8AFP40RW1XMBJ";
+    private String apiKey = "";
     //변수 안에 정해진 경로를 담을 수 있다.
 //    @Value("${coolsms.api.secret}")
-    private String apiSecretKey = "EMR2ALYP1LSA12KQQB9B3Z9C8JCTM8JK";
+    private String apiSecretKey = "";
 
     private DefaultMessageService messageService;
 
