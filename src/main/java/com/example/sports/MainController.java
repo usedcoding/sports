@@ -14,4 +14,9 @@ public class MainController {
     public String main() {
         return "main";
     }
+
+    @GetMapping("/map")
+    public String map() {
+        return "map";
+    }
 }
