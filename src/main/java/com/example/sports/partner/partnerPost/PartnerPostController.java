@@ -142,6 +142,5 @@ public class PartnerPostController {
                 smsUtil.sendOne(from, to);
         return String.format("redirect:/partner/detail/%d", offer.getPartnerPost().getId());
     }
-    //view  post 해결 및 코드 수정 필요
 
 }

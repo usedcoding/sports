@@ -1,7 +1,6 @@
 package com.example.sports.gym;
 
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.web.multipart.MultipartFile;
@@ -25,6 +24,6 @@ public class GymForm {
     @NotEmpty(message = "전화번호를 입력해 주세요.")
     private String phoneNum;
 
-    @NotNull
+    @NotEmpty
     private MultipartFile thumbnailImg;
 }
