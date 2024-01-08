@@ -33,20 +33,37 @@ SpringBoot, Spring Security, JPA, MariaDB, Intellij, thymeleaf
 ### 🚨 Issue 1
 ### 🚧 이슈 제목
 
-A. 이슈 내역
+A. validation 출력 오류
 <br>
 <br>
 문제점 설명
+체육관 데이터 중 image file 저장 과정에서 validation이 적용되지 않는 오류 발생
 <br>
 ## 🛑 원인
-- ...
+- validation annotion 중 @NotEmpty는 String 자료형에서만 적용되는 annotion이다. 하지만 image는 MUltipartFile 자료형을 사용해서 문제가 발생 했다.
 <br>
 <br>
 
 ## 🚥 해결
-- ...
+- @NotEmpty annotation을 @NotNull annotation으로 교체하여 문제 해결. @NotNull은 Object 자료형에 사용하는 annotation.
 
 ### 🚨 Issue 2
+### 🚧 이슈 제목
+
+A. 파트너 게시글에서 신청 댓글  트러블
+<br>
+<br>
+파트너 게시글에서 신청 댓글 호출 과정에서 해당 댓글만 호출되는 것이 아닌 전체 리스트가 호출 되는 트러블 발생
+<br>
+## 🛑 원인
+- 신청 댓글에 해당하는 ID가 아닌 전체 리스트를 출력하여 댓글 데이터가 들어가는 모든 게시글에 같은 리스트가 호출되었다.
+<br>
+<br>
+
+## 🚥 해결
+- 신청 댓글 리스트 호출이 아닌 파트너 게시글에 저장된 신청 댓글 ID 데이터를 호출하여 해결. partner.offer
+
+### 🚨 Issue 3
 ### 🚧 이슈 제목
 
 A. 이슈 내역
