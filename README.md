@@ -19,8 +19,7 @@ SpringBoot, Spring Security, JPA, MariaDB, Intellij, thymeleaf
 
 ## ☁️ ERD
 
-![사진명](사진url)
-
+![Buddy erd]![erd](https://github.com/usedcoding/sports/assets/136568257/7e0c4cb6-9498-483d-a9c8-7346bd58cc08)
 <br>
 <br>
 
