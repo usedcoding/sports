@@ -45,7 +45,7 @@ A. validation 출력 오류
 <br>
 
 ## 🚥 해결
-- @NotEmpty annotation을 @NotNull annotation으로 교체하여 문제 해결. @NotNull은 Object 자료형에 사용하는 annotation.
+- @NotEmpty annotation을 @NotNull annotation으로 교체하여 문제 해결했다. @NotNull은 Object 자료형에 사용하는 annotation.
 
 ### 🚨 Issue 2
 ### 🚧 이슈 제목
@@ -61,20 +61,20 @@ A. 파트너 게시글에서 신청 댓글  트러블
 <br>
 
 ## 🚥 해결
-- 신청 댓글 리스트 호출이 아닌 파트너 게시글에 저장된 신청 댓글 ID 데이터를 호출하여 해결. partner.offer
+- 신청 댓글 리스트 호출이 아닌 파트너 게시글에 저장된 신청 댓글 ID 데이터를 호출하여 해결했다. ${partner.offerList}
 
 ### 🚨 Issue 3
 ### 🚧 이슈 제목
 
-A. 이슈 내역
+A. DB 데이터 저장 오류
 <br>
 <br>
-문제점 설명
+단일 메세지 전송 서비스 코드 작업 중 전화번호 데이터 저장에서 int 자료형 문제 발생
 <br>
 ## 🛑 원인
-- ...
+- int 자료형 특성상 숫자 중 0이 가장 앞에 오는 경우 0이 사라지는 특징이 있다. 이로인해 핸드폰 번호의 010 중 10만 저장되는 현상이 발생.
 <br>
 <br>
 
 ## 🚥 해결
-- ...
+- ToString으로 int 자료형을 문자열 형태로 저장하여 010이 그대로 저장되도록 수정하여 해결했다.
