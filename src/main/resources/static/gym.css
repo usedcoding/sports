@@ -47,9 +47,11 @@ a{
   gap: 50px; /* 간격 설정 */
 }
 
-.list-wrap>.list>#holy>li>a>.img-box>img{
+.list-wrap>.list>#holy>li>a>.img-box>.img{
     width:200px;
     height:200px;
+   max-height: 200px;
+   max-width: 200px;
 }
 
 .list-wrap>.list>#holy>li>a>.gym-name{
