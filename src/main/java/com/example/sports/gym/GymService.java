@@ -20,8 +20,9 @@ import java.util.UUID;
 public class GymService {
     private final GymRepository gymRepository;
 
-    @Value("${genFileDirPath}")
-        private String genFileDirPath;
+    @Value("${custom.genFileDirPath}")
+    private String genFileDirPath;
+
     public Page<Gym> getList(int page, String keyword) {
         Pageable pageable = PageRequest.of(page, 10);
         return this.gymRepository.findAllByKeyword(keyword, pageable);

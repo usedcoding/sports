@@ -7,7 +7,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
-    @Value("${genFileDirPath}")
+    @Value("${custom.genFileDirPath}")
     private String genFileDirPath;
 
     @Override
