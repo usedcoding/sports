@@ -1,9 +1,9 @@
 spring:
   datasource:
-    driver-class-name: org.mariadb.jdbc.Driver
-    url: jdbc:mariadb://172.17.0.1:3306/sports_dev?useUnicode=true&characterEncoding=utf8&autoReconnect=true&serverTimezone=Asia/Seoul
-    username: sbblocal
-    password: 1234
+    url: jdbc:postgresql://sports-deploy-db.internal:5432/postgres
+    username: postgres
+    password: ffkfOobGyGyVyiv
+    driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
       ddl-auto: update
